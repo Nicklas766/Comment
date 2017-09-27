@@ -3,7 +3,7 @@
     <div class="featured-widget" style="color:#009CE6;">
         <h1> Du har inte befogenhet att göra det du precis försökte göra </h1>
         <p> Vi rekommenderar att du loggar in eller kontrollerar din profil</p>
-        <a href="<?= $app->link('user/login') ?>" style="color:#009CE6;" class="featured-button">Jag förstår</a>
+        <a href="<?= $this->url('user/login') ?>" style="color:#009CE6;" class="featured-button">Jag förstår</a>
     </div>
 
 </div>

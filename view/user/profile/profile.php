@@ -16,8 +16,8 @@
         </div>
 
         <div class="avatar-commands">
-            <a href="<?= $app->link('user/edit') ?>"><i class="material-icons">edit</i> </a> <br>
-            <a href="<?= $app->link('user/logout') ?>"><i class="material-icons">power_settings_new</i></a>
+            <a href="<?= $this->url('user/edit') ?>"><i class="material-icons">edit</i> </a> <br>
+            <a href="<?= $this->url('user/logout') ?>"><i class="material-icons">power_settings_new</i></a>
         </div>
     </div>
 </div>

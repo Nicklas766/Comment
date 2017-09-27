@@ -9,17 +9,17 @@ return [
         [
             // Routers for the user parts mounts on user/
             "mount" => "user",
-            "file" => __DIR__ . "/route2/comment2/user.php",
+            "file" => __DIR__ . "/route/comment/user.php",
         ],
         [
             // Routers for the user parts mounts on comment/
             "mount" => "comment",
-            "file" => __DIR__ . "/route2/comment2/comment.php",
+            "file" => __DIR__ . "/route/comment/comment.php",
         ],
         [
             // Routers for the user parts mounts on admin/
             "mount" => "admin",
-            "file" => __DIR__ . "/route2/comment2/admin.php",
+            "file" => __DIR__ . "/route/comment/admin.php",
         ],
     ],
 ];

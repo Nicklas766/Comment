@@ -15,7 +15,7 @@
                 <!-- Information and comment -->
                 <div style="width:80%; margin-left:2.5%; font-size:16px;">
                     <li><?= $comment->user ?>:</li>
-                    <a href='<?=$app->link("comment/edit/$comment->id")?>'> #<?= $comment->id ?> </a>
+                    <a href='<?= $this->url("comment/edit/$comment->id")?>'> #<?= $comment->id ?> </a>
                     <?= $comment->markdown ?></li>
 
                 </div>

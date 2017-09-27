@@ -9,12 +9,12 @@
     </h1>
     <div class="navbar-header">
         <li class="dropdown">
-          <a href="<?= $app->link('admin/user') ?>"><span class="material-icons">person</span>Users</a>
+          <a href="<?= $this->url('admin/user') ?>"><span class="material-icons">person</span>Users</a>
               <div class="dropdown-choices">
-                <a href="<?= $app->link('admin/user') ?>"><span class="material-icons">people</span>All</a>
-                <a href="<?= $app->link('admin/user/create') ?>"><span class="material-icons">person_add</span>Add</a>
+                <a href="<?= $this->url('admin/user') ?>"><span class="material-icons">people</span>All</a>
+                <a href="<?= $this->url('admin/user/create') ?>"><span class="material-icons">person_add</span>Add</a>
             </div>
         </li>
-        <a href="<?= $app->link('comment') ?>"><span class="material-icons">comment</span> Comments</a>
+        <a href="<?= $this->url('comment') ?>"><span class="material-icons">comment</span> Comments</a>
     </div>
 </div>

@@ -15,7 +15,7 @@
                  <td><?= $user->name ?></td>
                  <td><?= $user->email ?></td>
                  <td><?= $user->authority ?></td>
-                 <td><a href='<?= $app->link("admin/user/$user->id") ?>'>Edit </a></td>
+                 <td><a href='<?= $this->url("admin/user/$user->id") ?>'>Edit </a></td>
             </tr>
         <?php endforeach; ?>
     </table>

@@ -1,7 +1,7 @@
 <div class="login-wrapper">
     <div class="login-widget">
         <h3> Skapa ett konto </h3>
-        <form action="<?= $app->link('admin/create') ?>" method="POST">
+        <form action="<?= $this->url('admin/create') ?>" method="POST">
             <input placeholder="Användarnamn" type="text" name="name" required>
             <input placeholder="Mejladress" type="text" name="email">
             <select name="authority" required>

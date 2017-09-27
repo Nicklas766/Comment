@@ -2,6 +2,6 @@
     <div class="featured-widget" style="color:#009CE6; margin-bottom: 24px">
         <h1> Your login/creation failed </h1>
 
-        <a style="color:orange;" href="<?= $app->link('user/login')?>"> Back to login </a>
+        <a style="color:orange;" href="<?= $this->url('user/login')?>"> Back to login </a>
     </div>
 </div>
