@@ -39,6 +39,8 @@ class CommentTest extends \PHPUnit_Framework_TestCase
     public function testGetAll()
     {
         $returnedValue = is_array($this->comment->getAll());
+
+        $this->assertContainsOnly(new Comment(), $this->comment->getAll()); # array should only contain Comment objects
         $this->assertEquals($returnedValue, true);
     }
 
