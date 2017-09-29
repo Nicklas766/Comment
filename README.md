@@ -1,45 +1,53 @@
-Anax comment
+Comment Module for Anax
 ==================================
 
-[![Latest Stable Version](https://poser.pugx.org/anax/comment/v/stable)](https://packagist.org/packages/anax/comment)
-[![Join the chat at https://gitter.im/mosbth/anax](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/canax?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/canax/comment.svg?branch=master)](https://travis-ci.org/canax/comment)
-[![CircleCI](https://circleci.com/gh/canax/comment.svg?style=svg)](https://circleci.com/gh/canax/comment)
-[![Build Status](https://scrutinizer-ci.com/g/canax/comment/badges/build.png?b=master)](https://scrutinizer-ci.com/g/canax/comment/build-status/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/canax/comment/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/canax/comment/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/canax/comment/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/canax/comment/?branch=master)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d831fd4c-b7c6-4ff0-9a83-102440af8929/mini.png)](https://insight.sensiolabs.com/projects/d831fd4c-b7c6-4ff0-9a83-102440af8929)
 
-Anax comment module.
-
-
-
-Usage
+About
 ------------------
 
-Short examples on how to use the module comment.
-
-
-
-Setup
-------------------
-composer require nicklas/comment
-
+This is a comment module for the Anax framework. This README.md assumes you have a
+decent knowledge of the Anax-framework.
 
 There's no style included in this, therefore it will not look that great. If you want
 to add style you can study the `/views` and add style or change the classes.
 
 
-The comment module uses it's own renderpage functions, therefore you need to add this in your DI.
+Setup
+------------------
 
+Let's get started. You can use composer to install the package, then we will integrate the module with
+your Anax.
 
+### Install with composer
 
-Make sure you start inserting the following code in your pagerender.
+```
+composer require nicklas/comment
+```
 
+### Router files
 
-If you want to have a specific layout, you'll need to update the "renderPage" function
-just as normal, but also in the CommentModule.
+1. Copy the `config/route/comment` catalog and paste it in your own Anax installation.
+2. Copy code in the `config/route.php` and paste it in your own `config/route.php`.
 
+### DI-container
+
+Copy everything that lies in the `config/di.php` and paste it in your own DI-container. Also
+make sure that you add any dependency that you might not added already.
+
+Also don't be surprised that we're adding a `renderpage` class, since this comment
+module uses it's own renderpage functions, therefore we need to add them in our DI.
+
+### Database
+
+Use the SQL-code in the `src/Comment/sql/setup.sql` to setup your database.
+
+You'll need a `config/database.php` file. In other words, you'll need a normal setup for
+[anax\database](https://github.com/canax/database). If you already have a file, then you can use that one.
+
+### Views
+
+In `/views` you'll find the views for the module. You can copy them and paste it to your
+own Anax installation or study them and make your own. (No style is included)
 
 License
 ------------------
