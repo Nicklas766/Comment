@@ -37,7 +37,8 @@ The comment module uses it's own renderpage functions, therefore you need to add
 Make sure you start inserting the following code in your pagerender.
 
 
-
+If you want to have a specific layout, you'll need to update the "renderPage" function
+just as normal, but also in the CommentModule.
 
 
 License

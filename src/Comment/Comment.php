@@ -59,7 +59,7 @@ class Comment extends ActiveRecordModelExtender
      * Get comment
      *
      *
-     * @return array
+     * @return object
      */
     public function get($id)
     {

@@ -31,6 +31,7 @@ class ActiveRecordModelExtender extends ActiveRecordModel
      */
     public function getMD($content)
     {
-        return $this->di->get('textfilter')->parse($content, ["yamlfrontmatter", "shortcode", "markdown", "titlefromheader"])->text;
+        $funcArr = ["yamlfrontmatter", "shortcode", "markdown", "titlefromheader"];
+        return $this->di->get('textfilter')->parse($content, $funcArr)->text;
     }
 }
