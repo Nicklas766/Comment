@@ -64,7 +64,7 @@ class UserController implements
      */
     public function renderPage($views, $title)
     {
-        $this->di->get("pageRender")->renderPage([
+        $this->di->get("pageRenderComment")->renderPage([
             "views" => $views,
             "title" => "$title"
         ]);

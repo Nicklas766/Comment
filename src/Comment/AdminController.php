@@ -68,7 +68,7 @@ class AdminController extends UserController
             ["admin/crud/view-all", ["users" => $this->getUsers()], "main"]
         ];
 
-        $this->di->get("pageRender")->renderPage([
+        $this->di->get("pageRenderComment")->renderPage([
             "views" => $views,
             "title" => "A collection of items"
         ]);

@@ -25,77 +25,18 @@ Setup
 ------------------
 composer require nicklas/comment
 
+
+There's no style included in this, therefore it will not look that great. If you want
+to add style you can study the `/views` and add style or change the classes.
+
+
+The comment module uses it's own renderpage functions, therefore you need to add this in your DI.
+
+
+
 Make sure you start inserting the following code in your pagerender.
 
-```
-<?php
 
-    public function add($data)
-    {
-        // if multiple views create indexes for them
-        if (is_array($data[0])) {
-            return array_map(function ($val) use ($data) {
-                return ["view" => $val, "content" => $data[1], "region" => $data[2]];
-            }, $data[0]);
-        }
-        // if multiple content (multideminsional) create indexes for them
-        if (array_key_exists(0, $data[1])) {
-            return array_map(function ($val) use ($data) {
-                return ["view" => $data[0], "content" => $val, "region" => $data[2]];
-            }, $data[1]);
-        }
-        return [["view" => $data[0], "content" => $data[1], "region" => $data[2]]];
-    }
-
-    public function setArray($array, $key)
-    {
-        return array_map(function ($val) use ($key) {
-            return ["$key" => "$val"];
-        }, $array);
-    }
-
-    /**
-     * Render a standard web page using a specific layout.
-     */
-    public function viewify($views)
-    {
-        foreach ($views as $views) {
-            foreach ($this->add($views) as $view) {
-                // print_r($view["content"]);
-                $this->di->get("view")->add($view["view"], $view["content"], $view["region"]);
-            }
-        }
-    }
-
-    /**
-     * Render a standard web page using a specific layout.
-     *
-     * @param array   $data   variables to expose to layout view.
-     * @param integer $status code to use when delivering the result.
-     *
-     * @return void
-     */
-    public function renderPage($data, $status = 200)
-    {
-        // get view class
-        $view = $this->di->get("view");
-        // creates the views with viewify function
-        array_key_exists("views", $data) && $this->viewify($data["views"]);
-
-        $data["stylesheets"] = ["css/style.css"];
-        $data["javascripts"] = ["js/index.js"];
-
-
-        // Add layout, render it, add to response and send.
-        $view->add("default1/layout", $data, "layout");
-        $body = $view->renderBuffered("layout");
-        $this->di->get("response")->setBody($body)
-                                  ->send($status);
-        exit;
-    }
-}
-
-```
 
 
 

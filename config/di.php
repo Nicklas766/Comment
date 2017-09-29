@@ -22,6 +22,14 @@ return [
                 return $obj;
             }
         ],
+        "pageRenderComment" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \Nicklas\Page\PageRender();
+                $obj->setDI($this);
+                return $obj;
+            }
+        ],
         // "db" => [
         //     "shared" => true,
         //     "callback" => function () {
