@@ -135,10 +135,10 @@ return [
             }
         ],
         "db" => [
-            "shared" => true,
+            "shared" => false,
             "callback" => function () {
                 $obj = new \Anax\Database\DatabaseQueryBuilder();
-                $obj->configure("database.php");
+                $obj->configure("sqlitedatabase.php");
                 return $obj;
             }
         ],

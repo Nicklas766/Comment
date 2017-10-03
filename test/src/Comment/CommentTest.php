@@ -8,17 +8,22 @@ namespace Nicklas\Comment;
 class CommentTest extends \PHPUnit_Framework_TestCase
 {
 
-    protected $di;
+
     protected $comment;
 
+    protected static $di;
+
+    public static function setUpBeforeClass()
+    {
+        self::$di = new \Anax\DI\DIFactoryConfig("testDI.php");
+    }
     /**
      * Test cases requires DI-container, therefore save in constructor
      */
     public function setUp()
     {
-        $this->di = new \Anax\DI\DIFactoryConfig("testDI.php");
-        $this->comment = new Comment($this->di);
-        $this->comment->setDb($this->di->get("db"));
+        $this->comment = new Comment(self::$di);
+        $this->comment->setDb(self::$di->get("db"));
     }
 
     /**

@@ -9,24 +9,27 @@ use Nicklas\Comment\User;
  */
 class EditUserFormTest extends \PHPUnit_Framework_TestCase
 {
-    protected $di;
     protected $form;
 
+    protected static $di;
+
+    public static function setUpBeforeClass()
+    {
+        self::$di = new \Anax\DI\DIFactoryConfig("testDI.php");
+    }
     /**
      * Test cases requires DI-container, therefore save in constructor
      */
     public function setUp()
     {
-        $this->di = new \Anax\DI\DIFactoryConfig("testDI.php");
-
         // setup user
         $this->user = new User();
-        $this->user->setDb($this->di->get("db"));
+        $this->user->setDb(self::$di->get("db"));
         $this->user->name = "James";
         $this->user->setPassword("password");
         $this->user->save();
 
-        $this->lastId = $this->di->get("db")->lastInsertId();
+        $this->lastId = self::$di->get("db")->lastInsertId();
     }
 
     protected function tearDown()
@@ -40,12 +43,12 @@ class EditUserFormTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $this->form = new EditUserForm($this->di, $this->lastId);
+        $this->form = new EditUserForm(self::$di, $this->lastId);
     }
 
     public function testCallBack()
     {
-        $this->form = new EditUserForm($this->di, $this->lastId);
+        $this->form = new EditUserForm(self::$di, $this->lastId);
         $this->form->callbackSubmit();
     }
 }

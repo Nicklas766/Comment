@@ -7,16 +7,17 @@ namespace Nicklas\Comment\HTMLForm;
  */
 class CreateUserForm2Test extends \PHPUnit_Framework_TestCase
 {
-    protected $di;
     protected $form;
 
     /**
      * Test cases requires DI-container, therefore save in constructor
      */
-    public function setUp()
-    {
-        $this->di = new \Anax\DI\DIFactoryConfig("testDI.php");
-    }
+     protected static $di;
+
+     public static function setUpBeforeClass()
+     {
+         self::$di = new \Anax\DI\DIFactoryConfig("testDI.php");
+     }
 
     /**
      * Test case for construct function
@@ -24,6 +25,6 @@ class CreateUserForm2Test extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $this->form = new CreateUserForm2($this->di);
+        $this->form = new CreateUserForm2(self::$di);
     }
 }

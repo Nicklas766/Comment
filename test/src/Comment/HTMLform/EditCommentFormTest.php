@@ -10,7 +10,6 @@ use Nicklas\Comment\Comment;
  */
 class EditCommentFormTest extends \PHPUnit_Framework_TestCase
 {
-    protected $di;
     protected $form;
     protected $comment;
     protected $user;
@@ -18,33 +17,13 @@ class EditCommentFormTest extends \PHPUnit_Framework_TestCase
     /**
      * Test cases requires DI-container, therefore save in constructor
      */
-    public function setUp()
-    {
-        $this->di = new \Anax\DI\DIFactoryConfig("testDI.php");
+     protected static $di;
 
-        // create user
-        $this->user = new User($this->di);
-        $this->user->setDb($this->di->get("db"));
-        $this->user->name = "Steve";
-        $this->user->setPassword("password");
-        $this->user->save();
+     public static function setUpBeforeClass()
+     {
+         self::$di = new \Anax\DI\DIFactoryConfig("testDI.php");
+     }
 
-        //create comment
-        $this->comment = new Comment();
-        $this->comment->setDb($this->di->get("db"));
-        $this->comment->user = $this->user->name;
-        $this->comment->comment = "comment text";
-        $this->comment->save();
-
-        // save comment id
-        $this->lastId = $this->di->get("db")->lastInsertId();
-    }
-
-    protected function tearDown()
-    {
-        $this->comment->delete();
-        $this->user->delete();
-    }
 
     /**
      * Test case for construct function
@@ -52,6 +31,6 @@ class EditCommentFormTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $this->form = new EditCommentForm($this->di, $this->lastId);
+        $this->form = new EditCommentForm(self::$di, "1");
     }
 }

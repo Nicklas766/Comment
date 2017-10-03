@@ -8,16 +8,20 @@ namespace Nicklas\Comment;
 class UserControllerTest extends \PHPUnit_Framework_TestCase
 {
 
-    protected $di;
     protected $userController;
 
+    protected static $di;
+
+    public static function setUpBeforeClass()
+    {
+        self::$di = new \Anax\DI\DIFactoryConfig("testDI.php");
+    }
     /**
      * Test cases requires DI-container, therefore save in constructor
      */
     public function setUp()
     {
-        $this->di = new \Anax\DI\DIFactoryConfig("testDI.php");
-        $this->userController = $this->di->get("commentFrontController");
+        $this->userController = self::$di->get("commentFrontController");
     }
 
     /**
@@ -38,7 +42,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
     {
 
         $user = new User();
-        $user->setDb($this->di->get("db"));
+        $user->setDb(self::$di->get("db"));
         $user->name = "Markus";
         $user->setPassword("password");
         $user->save();

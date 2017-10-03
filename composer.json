@@ -19,7 +19,8 @@
     "autoload": {
         "psr-4": {
             "Anax\\": "src/",
-            "Nicklas\\": "src/"
+            "Nicklas\\": "src/",
+            "Nicklas\\": "test/src/"
         }
     },
     "require": {

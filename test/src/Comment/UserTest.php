@@ -7,18 +7,21 @@ namespace Nicklas\Comment;
  */
 class UserTest extends \PHPUnit_Framework_TestCase
 {
-
-    protected $di;
     protected $user;
 
+    protected static $di;
+
+    public static function setUpBeforeClass()
+    {
+        self::$di = new \Anax\DI\DIFactoryConfig("testDI.php");
+    }
     /**
     * Test cases requires DI-container, therefore save in constructor
     */
     public function setUp()
     {
-        $this->di = new \Anax\DI\DIFactoryConfig("testDI.php");
-        $this->user = new User($this->di);
-        $this->user->setDb($this->di->get("db"));
+        $this->user = new User(self::$di);
+        $this->user->setDb(self::$di->get("db"));
         $this->user->email = "user@anaxtesting.com";
     }
     /**

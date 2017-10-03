@@ -2,7 +2,8 @@
 --
 -- GRANT ALL ON commentify.* TO user@localhost IDENTIFIED BY 'pass';
 -- CREATE DATABASE commentify;
-USE nien16;
+USE commentify;
+-- CREATE DATABASE commentify;
 
 -- Ensure UTF8 as chacrter encoding within connection.
 SET NAMES utf8;
@@ -33,4 +34,9 @@ CREATE TABLE `ramverk1_comments`
 
 
 INSERT INTO `ramverk1_users` (`name`, `email`, `pass`, `authority`) VALUES
-    ("admin", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin");
+    ("admin", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin"),
+    ("user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user");
+
+INSERT INTO `ramverk1_comments` (`user`, `comment`) VALUES
+    ("admin", "hej"),
+    ("user", "hej2");

@@ -37,7 +37,7 @@ matrix:
 
 
 before_script:
-    - make install test
+    - make install
 
 
 script:
