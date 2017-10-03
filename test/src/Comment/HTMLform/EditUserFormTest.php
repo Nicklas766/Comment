@@ -27,6 +27,7 @@ class EditUserFormTest extends \PHPUnit_Framework_TestCase
         $this->user->setDb(self::$di->get("db"));
         $this->user->name = "James";
         $this->user->setPassword("password");
+        $this->user->authority = "user";
         $this->user->save();
 
         $this->lastId = self::$di->get("db")->lastInsertId();

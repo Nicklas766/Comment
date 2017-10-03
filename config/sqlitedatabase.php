@@ -11,8 +11,9 @@
  * Example for SQLite.
  *  "dsn" => "sqlite:memory::",
  */
+
 return [
-    "dsn"             => "sqlite:" . ANAX_INSTALL_PATH . "/data/db.sqlite",
+    "dsn"             => "sqlite::memory:",
     "username"        => null,
     "password"        => null,
     "driver_options"  => null,

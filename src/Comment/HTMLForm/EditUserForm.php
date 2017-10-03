@@ -92,7 +92,7 @@ class EditUserForm extends FormModel
           $user = $this->user;
 
           $user->email = $email;
-          $user->authority = $this->form->value("select");
+          $user->authority = $this->form->value("select") ?: "user";
           $user->save();
           $this->form->addOutput("Du uppdaterade användaren");
           return true;
