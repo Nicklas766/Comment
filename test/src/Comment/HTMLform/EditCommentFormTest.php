@@ -13,16 +13,16 @@ class EditCommentFormTest extends \PHPUnit_Framework_TestCase
     protected $form;
     protected $comment;
     protected $user;
+    protected static $di;
 
     /**
      * Test cases requires DI-container, therefore save in constructor
      */
-     protected static $di;
 
-     public static function setUpBeforeClass()
-     {
-         self::$di = new \Anax\DI\DIFactoryConfig("testDI.php");
-     }
+    public static function setUpBeforeClass()
+    {
+        self::$di = new \Anax\DI\DIFactoryConfig("testDI.php");
+    }
 
 
     /**

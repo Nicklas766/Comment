@@ -10,22 +10,17 @@ class CommentTest extends \PHPUnit_Framework_TestCase
 
 
     protected $comment;
-
     protected static $di;
 
     public static function setUpBeforeClass()
     {
-                self::$di = new \Anax\DI\DIFactoryConfig("testDI.php");
-
+        self::$di = new \Anax\DI\DIFactoryConfig("testDI.php");
     }
     /**
      * Test cases requires DI-container, therefore save in constructor
      */
     public function setUp()
     {
-
-        // $sql = file_get_contents('C:\Users\Nicklas\dbwebb-kurser\ramverk1\me\comment\test\src\Comment\setupSqlite.sql');
-        // var_dump($this->di->get("db"));
         $this->comment = new Comment(self::$di);
         $this->comment->setDb(self::$di->get("db"));
     }
