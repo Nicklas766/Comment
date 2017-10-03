@@ -5,7 +5,7 @@ namespace Nicklas\Comment;
 use \Anax\Configure\ConfigureInterface;
 use \Anax\Configure\ConfigureTrait;
 use \Anax\DI\InjectionAwareInterface;
-use \Anax\Di\InjectionAwareTrait;
+use \Anax\DI\InjectionAwareTrait;
 use \Nicklas\Comment\HTMLForm\UserLoginForm;
 use \Nicklas\Comment\HTMLForm\CreateUserForm;
 use \Nicklas\Comment\HTMLForm\EditProfileForm;
