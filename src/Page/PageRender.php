@@ -44,7 +44,6 @@ class PageRender implements PageRenderInterface, InjectionAwareInterface
     {
         foreach ($views as $views) {
             foreach ($this->add($views) as $view) {
-                // print_r($view["content"]);
                 $this->di->get("view")->add($view["view"], $view["content"], $view["region"]);
             }
         }

@@ -13,7 +13,6 @@ return [
                 return $obj;
             }
         ],
-
         "commentFrontController" => [
             "shared" => true,
             "callback" => function () {
@@ -30,14 +29,13 @@ return [
                 return $obj;
             }
         ],
-
-        // "db" => [
-        //     "shared" => true,
-        //     "callback" => function () {
-        //         $obj = new \Anax\Database\DatabaseQueryBuilder();
-        //         $obj->configure("database.php");
-        //         return $obj;
-        //     }
-        // ],
+        "db" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \Anax\Database\DatabaseQueryBuilder();
+                $obj->configure("database.php");
+                return $obj;
+            }
+        ],
     ],
 ];

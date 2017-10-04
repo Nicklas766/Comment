@@ -55,7 +55,7 @@ class CreateUserForm2 extends FormModel
 
                 "submit" => [
                     "type" => "submit",
-                    "value" => "Create user",
+                    "value" => "Skapa user",
                     "callback" => [$this, "callbackSubmit"]
                 ],
             ]

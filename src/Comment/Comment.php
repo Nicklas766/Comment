@@ -8,15 +8,6 @@ namespace Nicklas\Comment;
 class Comment extends ActiveRecordModelExtender
 {
 
-    /**
-     * Constructor injects with DI container.
-     *
-     */
-    public function __construct($di = null)
-    {
-        $this->di = $di;
-    }
-
         /**
      * @var string $tableName name of the database table.
      */
@@ -28,8 +19,19 @@ class Comment extends ActiveRecordModelExtender
      * @var integer $id primary key auto incremented.
      */
     public $id;
+    public $di;
     public $user;
     public $comment;
+
+
+    /**
+     * Constructor injects with DI container.
+     *
+     */
+    public function __construct($di = null)
+    {
+        $this->di = $di;
+    }
 
 
 
@@ -72,7 +74,7 @@ class Comment extends ActiveRecordModelExtender
      * Check if a comment belongs to user
      *
      *
-     * @return array
+     * @return boolean
      */
     public function controlAuthority($name)
     {

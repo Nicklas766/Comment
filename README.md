@@ -1,3 +1,10 @@
+[![Build Status](https://travis-ci.org/Nicklas766/Comment.svg?branch=master)](https://travis-ci.org/Nicklas766/Comment)
+[![CircleCI](https://circleci.com/gh/Nicklas766/Comment.svg?style=svg)](https://circleci.com/gh/Nicklas766/Comment)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Nicklas766/Comment/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Nicklas766/Comment/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/Nicklas766/Comment/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Nicklas766/Comment/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/Nicklas766/Comment/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Nicklas766/Comment/build-status/master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/b5c041be-12ba-45e8-bd50-7b52928895e3/mini.png)](https://insight.sensiolabs.com/projects/b5c041be-12ba-45e8-bd50-7b52928895e3)
+
 Comment Module for Anax
 ==================================
 
