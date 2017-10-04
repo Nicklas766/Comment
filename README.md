@@ -4,6 +4,7 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/Nicklas766/Comment/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Nicklas766/Comment/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/Nicklas766/Comment/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Nicklas766/Comment/build-status/master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b5c041be-12ba-45e8-bd50-7b52928895e3/mini.png)](https://insight.sensiolabs.com/projects/b5c041be-12ba-45e8-bd50-7b52928895e3)
+[![Gitter](https://badges.gitter.im/Nicklas766/Comment.svg)](https://gitter.im/Nicklas766/Comment?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Comment Module for Anax
 ==================================
