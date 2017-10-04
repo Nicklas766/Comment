@@ -54,6 +54,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $returnedUser->delete();
     }
 
+
     /**
     *   CANT BE TESTED SINCE EXIT ON REDIRECT
      * Test case for logout function
