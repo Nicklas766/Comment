@@ -62,7 +62,11 @@ class EditProfileForm extends FormModel
             return false;
         }
 
-          $name = $this->di->get('session')->get("user");
+
+        if (!$this->di->get('session')->get("user")) {
+            return false;
+        }
+        $name = $this->di->get('session')->get("user");
           $user = new User();
           $user->setDb($this->di->get("db"));
           $user->find("name", $name);

@@ -45,6 +45,7 @@ class EditUserFormTest extends \PHPUnit_Framework_TestCase
     public function testConstruct()
     {
         $this->form = new EditUserForm(self::$di, $this->lastId);
+        $this->assertEquals($this->form, new EditUserForm(self::$di, $this->lastId));
     }
 
     public function testCallBack()

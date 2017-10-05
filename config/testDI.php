@@ -129,6 +129,14 @@ return [
         "pageRenderComment" => [
             "shared" => true,
             "callback" => function () {
+                $obj = new \Nicklas\Page\PageRenderMock();
+                $obj->setDI($this);
+                return $obj;
+            }
+        ],
+        "pageRenderComment2" => [
+            "shared" => true,
+            "callback" => function () {
                 $obj = new \Nicklas\Page\PageRender();
                 $obj->setDI($this);
                 return $obj;

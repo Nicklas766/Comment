@@ -8,7 +8,7 @@ use \Anax\DI\InjectionAwareTrait;
 /**
  * A default page rendering class.
  */
-class PageRender implements PageRenderInterface, InjectionAwareInterface
+class PageRenderMock implements PageRenderInterface, InjectionAwareInterface
 {
     use InjectionAwareTrait;
 
@@ -59,19 +59,16 @@ class PageRender implements PageRenderInterface, InjectionAwareInterface
      */
     public function renderPage($data, $status = 200)
     {
-        // get view class
-        $view = $this->di->get("view");
         // creates the views with viewify function
         array_key_exists("views", $data) && $this->viewify($data["views"]);
 
         $data["stylesheets"] = ["css/style.css"];
         $data["javascripts"] = ["js/index.js"];
 
-        // Add layout, render it, add to response and send.
-        $view->add("default1/layout", $data, "layout");
-        $body = $view->renderBuffered("layout");
-        $this->di->get("response")->setBody($body)
-                                  ->send($status);
-        exit;
+
+        if ($data["title"] !== null) {
+            return $data["title"];
+        }
+        return false;
     }
 }
