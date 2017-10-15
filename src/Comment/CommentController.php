@@ -26,14 +26,12 @@ class CommentController extends AdminController
         $form->check();
 
         $views = [
-            ["comment/view-all", ["comments" => $comment->getAll()], "main"],
             ["comment/makeComment", ["form" => $form->getHTML()], "main"]
         ];
 
         // If not logged in, render other views
         if (!$this->di->get("session")->has("user")) {
             $views = [
-                ["comment/view-all", ["comments" => $comment->getAll()], "main"],
                 ["comment/loginComment", [], "main"]
             ];
         }

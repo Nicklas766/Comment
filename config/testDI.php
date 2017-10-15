@@ -149,6 +149,13 @@ return [
                 $obj->configure("sqlitedatabase.php");
                 $obj->connect();
 
+
+
+                // SETUP ALL TABLES
+
+
+
+                // USERS
                 $sql = '
                 CREATE TABLE `ramverk1_users`
                 (
@@ -156,23 +163,41 @@ return [
                   `name` VARCHAR(100) NOT NULL UNIQUE,
                   `email` VARCHAR(100),
                   `pass` VARCHAR(255) NOT NULL,
-                  `authority` VARCHAR(255) NOT NULL
+                  `authority` VARCHAR(255) NOT NULL,
+                  `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )';
                 $obj->execute($sql);
+
+                // COMMENT TABLE
                 $sql = 'CREATE TABLE `ramverk1_comments`
                 (
                   `id` INTEGER PRIMARY KEY NOT NULL,
                   `user` VARCHAR(100) NOT NULL,
-                  `comment` text
+                  `text` text,
+                  `parentId` INT,
+                  `type` VARCHAR(100) NOT NULL,
+                  `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                  `status` VARCHAR(20) DEFAULT active,
+                  FOREIGN KEY (`user`) REFERENCES `ramverk1_users` (`name`)
                 )';
                 $obj->execute($sql);
-                $sql = 'INSERT INTO `ramverk1_users` (`id`, `name`, `email`, `pass`, `authority`) VALUES
-                    (1, "admin", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin"),
-                    (2, "user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user")';
+
+
+
+
+                $sql = 'INSERT INTO `ramverk1_users` (`name`, `email`, `pass`, `authority`) VALUES
+                    ("admin", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin"),
+                    ("kalle", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user"),
+                    ("sven", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user"),
+                    ("user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user")';
                 $obj->execute($sql);
-                $sql = 'INSERT INTO `ramverk1_comments` (`id`, `user`, `comment`) VALUES
-                    (1, "admin", "comment"),
-                    (2, "user", "comment2")';
+                $sql = 'INSERT INTO `ramverk1_comments` (`user`, `text`, `parentId`, `type`) VALUES
+                    ("kalle", "Hej bör kaffe drickas ur tjocka koppar eller smala? Vad gillar ni mest? Personligen så föredrar jag smala.", 0, "question"),
+                    ("sven", "Bra fråga, troligtvis något många glömmer att tänka på. Jag har bara tjocka kaffekoppar hemma.", 1, "answer"),
+                    ("kalle", "Ok tack för ditt svar", 2, "comment"),
+                    ("sven", "En kommentar till din fråga men ej svar", 1, "comment"),
+                    ("kalle", "Tack för din kommentar på min fråga", 1, "comment"),
+                    ("sven", "En fråga", 0, "question")';
                 $obj->execute($sql);
 
 

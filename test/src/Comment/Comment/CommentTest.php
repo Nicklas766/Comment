@@ -37,25 +37,47 @@ class CommentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test case for GetALl function
+     * Test case for GetPost function
      * Controls that the return is correct regarding to the function.
      */
-    public function testGetAll()
+    public function testGetPost()
     {
-        $returnedValue = is_array($this->comment->getAll());
+        // First should be question
+        $comment = $this->comment->getPost(1);
+        $this->assertEquals($comment->user, "kalle");
+        $this->assertEquals($comment->type, "question");
 
-        $this->assertContainsOnly(new Comment(), $this->comment->getAll()); # array should only contain Comment objects
-        $this->assertEquals($returnedValue, true);
+        // Second should be answer
+        $comment = $this->comment->getPost(2);
+        $this->assertEquals($comment->user, "sven");
+        $this->assertEquals($comment->type, "answer");
+
+        // third should be comment
+        $comment = $this->comment->getPost(3);
+        $this->assertEquals($comment->user, "kalle");
+        $this->assertEquals($comment->type, "comment");
+
     }
 
     /**
-     * Test case for get function
+     * Test case for GetPosts function
      * Controls that the return is correct regarding to the function.
      */
-    public function testGet()
+    public function testGetPosts()
     {
-        $returnedValue = is_object($this->comment->get("1"));
-        $this->assertEquals($returnedValue, true);
+        // Should have length of 2, also have type "comment"
+        $comments = $this->comment->getPosts("parentId = ? AND type = ?", [1, "comment"]);
+        $this->assertEquals(count($comments), 2);
+        $this->assertEquals($comments[1]->type, "comment");
+
+        // Should have all questions made by user "kalle"
+        $questions = $this->comment->getPosts("user = ? AND type = ?", ["kalle", "question"]);
+        $this->assertEquals($questions[0]->user, "kalle");
+        $this->assertEquals(count($questions), 1);
+
+        // Should have all questions made by all users
+        $questions = $this->comment->getPosts("type = ?", ["question"]);
+        $this->assertEquals(count($questions), 2);
     }
 
     /**
@@ -64,10 +86,18 @@ class CommentTest extends \PHPUnit_Framework_TestCase
      */
     public function testControlAuthority()
     {
-        $returnedValue = $this->comment->controlAuthority("admin");
+        $comment = $this->comment->getPost(1);
+
+        // Returns true since user is admin
+        $returnedValue = $comment->controlAuthority("admin");
         $this->assertEquals($returnedValue, true);
 
-        $returnedValue = $this->comment->controlAuthority("user");
+        // Returns true since user made question
+        $returnedValue = $comment->controlAuthority("kalle");
+        $this->assertEquals($returnedValue, true);
+
+        // Returns false since user didn't create question
+        $returnedValue = $comment->controlAuthority("sven");
         $this->assertEquals($returnedValue, false);
     }
 }
