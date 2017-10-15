@@ -1,6 +1,6 @@
 <?php
 
-namespace Nicklas\Comment\HTMLForm;
+namespace Nicklas\Comment\HTMLForm\Comment;
 
 use \Anax\HTMLForm\FormModel;
 use \Anax\DI\DIInterface;

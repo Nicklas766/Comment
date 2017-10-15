@@ -1,15 +1,12 @@
 <?php
-
-namespace Nicklas\Comment\HTMLForm;
-
+namespace Nicklas\Comment\HTMLForm\User;
 use \Anax\HTMLForm\FormModel;
 use \Anax\DI\DIInterface;
-use \Nicklas\Comment\User;
-
+use \Nicklas\Comment\Modules\User;
 /**
  * Example of FormModel implementation.
  */
-class UserLoginForm extends FormModel
+class UserResetForm extends FormModel
 {
     /**
      * Constructor injects with DI container.
@@ -19,12 +16,12 @@ class UserLoginForm extends FormModel
     public function __construct(DIInterface $di)
     {
         parent::__construct($di);
-
         $this->form->create(
             [
                 "id" => __CLASS__,
                 "br-after-label" => false,
                 "use_fieldset" => false,
+                "wrapper-element" => "div",
             ],
             [
                 "user" => [
@@ -32,28 +29,23 @@ class UserLoginForm extends FormModel
                     //"description" => "Here you can place a description.",
                     "placeholder" => "Användarnamn",
                     "validation" => ["not_empty"],
-                    "label" => false
+                    "label" => false,
                 ],
-
-                "password" => [
-                    "type"        => "password",
-                    //"description" => "Here you can place a description.",
-                    "placeholder" => "Lösenord",
+                "answer" => [
+                    "type"        => "text",
+                    "description" => "Vad är din favorträtt?",
+                    "placeholder" => "Kontrollfråga",
                     "validation" => ["not_empty"],
-                    "label" => false
+                    "label" => false,
                 ],
-
                 "submit" => [
                     "type" => "submit",
-                    "value" => "Login",
+                    "value" => "Svara",
                     "callback" => [$this, "callbackSubmit"]
                 ],
             ]
         );
     }
-
-
-
     /**
      * Callback for submit-button which should return true if it could
      * carry out its work and false if something failed.
@@ -64,19 +56,20 @@ class UserLoginForm extends FormModel
     {
         // Get values from the submitted form
         $name       = $this->form->value("user");
-        $password      = $this->form->value("password");
-
+        $answer      = $this->form->value("answer");
         $user = new User();
         $user->setDb($this->di->get("db"));
-        $res = $user->verifyPassword($name, $password);
-
-        if (!$res) {
+        $res = $user->verifyQuestion($name, $answer);
+        if ($res) {
             $this->form->rememberValues();
-            $this->form->addOutput("User or password did not match.");
-            return false;
+            $random = substr(md5(mt_rand()), 0, 7);
+            $this->form->addOutput("Rätt! Ditt lösenord har ändrats till <b>'{$random}'</b>. Ange det när du loggar in och byt sedan till valfritt i din profilsida.");
+            $user->setPassword($random);
+            $user->save();
+            return true;
         }
-
-        $this->di->get('session')->set("user", $name); # set user in session
-        $this->di->get("response")->redirect("user/profile");
+        $this->form->rememberValues();
+        $this->form->addOutput("Du hade fel, kontrollera så du inte skriver med stora bokstäver");
+        return false;
     }
 }

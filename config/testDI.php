@@ -152,9 +152,6 @@ return [
 
 
                 // SETUP ALL TABLES
-
-
-
                 // USERS
                 $sql = '
                 CREATE TABLE `ramverk1_users`
@@ -164,7 +161,8 @@ return [
                   `email` VARCHAR(100),
                   `pass` VARCHAR(255) NOT NULL,
                   `authority` VARCHAR(255) NOT NULL,
-                  `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                  `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                  `question` text
                 )';
                 $obj->execute($sql);
 
@@ -185,11 +183,11 @@ return [
 
 
 
-                $sql = 'INSERT INTO `ramverk1_users` (`name`, `email`, `pass`, `authority`) VALUES
-                    ("admin", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin"),
-                    ("kalle", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user"),
-                    ("sven", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user"),
-                    ("user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user")';
+                $sql = 'INSERT INTO `ramverk1_users` (`name`, `email`, `pass`, `authority`, `question`) VALUES
+                    ("admin", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin", "lasagne"),
+                    ("kalle", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
+                    ("sven", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
+                    ("user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne")';
                 $obj->execute($sql);
                 $sql = 'INSERT INTO `ramverk1_comments` (`user`, `text`, `parentId`, `type`) VALUES
                     ("kalle", "Hej bör kaffe drickas ur tjocka koppar eller smala? Vad gillar ni mest? Personligen så föredrar jag smala.", 0, "question"),

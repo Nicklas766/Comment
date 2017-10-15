@@ -1,10 +1,10 @@
 <?php
 
-namespace Nicklas\Comment\HTMLForm;
+namespace Nicklas\Comment\HTMLForm\User;
 
 use \Anax\HTMLForm\FormModel;
 use \Anax\DI\DIInterface;
-use \Nicklas\Comment\User;
+use \Nicklas\Comment\Modules\User;
 
 /**
  * Example of FormModel implementation.
@@ -37,6 +37,12 @@ class CreateUserForm extends FormModel
                 "email" => [
                     "type"        => "text",
                     "placeholder" => "email",
+                    "label" => false,
+                ],
+                "question" => [
+                    "type"        => "text",
+                    "placeholder" => "Din favoriträtt",
+                    "validation" => ["not_empty"],
                     "label" => false,
                 ],
 
@@ -79,6 +85,7 @@ class CreateUserForm extends FormModel
         // Get values from the submitted form
         $name       = $this->form->value("name");
         $email       = $this->form->value("email");
+        $question       = $this->form->value("question");
         $password      = $this->form->value("password");
         $passwordAgain = $this->form->value("password-again");
 
@@ -104,6 +111,7 @@ class CreateUserForm extends FormModel
 
           $user->name = $name;
           $user->email = $email;
+          $user->question = $question;
           $user->setPassword($password);
           $user->save();
 

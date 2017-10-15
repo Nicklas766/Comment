@@ -1,6 +1,6 @@
 <?php
 
-namespace Nicklas\Comment;
+namespace Nicklas\Comment\Modules;
 
 use \Anax\Database\ActiveRecordModel;
 use \Nicklas\Comment;

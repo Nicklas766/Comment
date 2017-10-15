@@ -1,6 +1,6 @@
 <?php
 
-namespace Nicklas\Comment\HTMLForm;
+namespace Nicklas\Comment\HTMLForm\Comment;
 
 /**
  * Test cases for class Navbar

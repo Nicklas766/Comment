@@ -2,13 +2,15 @@
 
 namespace Nicklas\Comment;
 
-use \Nicklas\Comment\HTMLForm\EditUserForm;
-use \Nicklas\Comment\HTMLForm\CreateUserForm2;
+use \Nicklas\Comment\HTMLForm\Admin\EditUserForm;
+use \Nicklas\Comment\HTMLForm\Admin\CreateUserForm2;
 
+// MODULES
+use \Nicklas\Comment\Modules\User;
 /**
  * A controller class.
  */
-class AdminController extends UserController
+class AdminController extends ProfileController
 {
 
     /**
@@ -47,7 +49,10 @@ class AdminController extends UserController
             $views = [
                 ["admin/fail", [], "main"]
             ];
-            $this->renderPage($views, "Not authorized");
+            $this->di->get("pageRenderComment")->renderPage([
+                "views" => $views,
+                "title" => "Not authorized"
+            ]);
         }
     }
 
@@ -70,7 +75,7 @@ class AdminController extends UserController
 
         $this->di->get("pageRenderComment")->renderPage([
             "views" => $views,
-            "title" => "A collection of items"
+            "title" => "A collection of users"
         ]);
     }
 
@@ -94,7 +99,10 @@ class AdminController extends UserController
             ["admin/crud/edit", ["form" => $form->getHTML()], "main"]
         ];
 
-        $this->renderPage($views, "A login page");
+        $this->di->get("pageRenderComment")->renderPage([
+            "views" => $views,
+            "title" => "Edit user"
+        ]);
     }
 
     /**
@@ -116,6 +124,9 @@ class AdminController extends UserController
             ["admin/crud/edit", ["form" => $form->getHTML()], "main"]
         ];
 
-        $this->renderPage($views, "A login page");
+        $this->di->get("pageRenderComment")->renderPage([
+            "views" => $views,
+            "title" => "Create user"
+        ]);
     }
 }

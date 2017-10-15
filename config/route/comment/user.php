@@ -17,6 +17,12 @@ return [
             "callable" => ["commentFrontController", "getPostLogin"],
         ],
         [
+            "info" => "Reset password",
+            "requestMethod" => "get|post",
+            "path" => "reset",
+            "callable" => ["commentFrontController", "getPostReset"],
+        ],
+        [
             "info" => "Create a user.",
             "requestMethod" => "get|post",
             "path" => "create",
@@ -28,6 +34,7 @@ return [
             "path" => "logout",
             "callable" => ["commentFrontController", "logout"],
         ],
+        // Profile
         [
             "info" => "Render a profilepage",
             "requestMethod" => null,
@@ -39,6 +46,12 @@ return [
             "requestMethod" => "get|post",
             "path" => "edit",
             "callable" => ["commentFrontController", "getPostEditUser"],
+        ],
+        [
+            "info" => "Edit profile security.",
+            "requestMethod" => "get|post",
+            "path" => "security",
+            "callable" => ["commentFrontController", "getPostEditSecurity"],
         ],
     ]
 ];

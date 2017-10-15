@@ -2,7 +2,7 @@
 --
 -- GRANT ALL ON commentify.* TO user@localhost IDENTIFIED BY 'pass';
 -- CREATE DATABASE commentify;
-USE commentify;
+USE anaxdb;
 -- CREATE DATABASE commentify;
 
 -- Ensure UTF8 as chacrter encoding within connection.
@@ -24,7 +24,8 @@ CREATE TABLE `ramverk1_users`
   `email` VARCHAR(100),
   `pass` VARCHAR(255) NOT NULL,
   `authority` VARCHAR(255) NOT NULL,
-  `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `question` text
 ) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 
@@ -56,16 +57,16 @@ CREATE TABLE `ramverk1_comments`
 --
 -- ------------------------------------------------------------------------
 
-INSERT INTO `ramverk1_users` (`name`, `email`, `pass`, `authority`) VALUES
-    ("admin", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin"),
-    ("kalle", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user"),
-    ("sven", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user"),
-    ("user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user");
+INSERT INTO `ramverk1_users` (`name`, `email`, `pass`, `authority`, `question`) VALUES
+    ("admin", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin", "lasagne"),
+    ("kalle", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
+    ("sven", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
+    ("user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne");
 
 
 INSERT INTO `ramverk1_comments` (`user`, `text`, `parentId`, `type`) VALUES
     ("kalle", "Hej bör kaffe drickas ur tjocka koppar eller smala? Vad gillar ni mest? Personligen så föredrar jag smala.", 0, "question"),
-    ("sven", "Bra fråga, troligtvis något många glömmer att tänka på. Jag har bara tjocka kaffekoppar hemma.", 1, "answer")
+    ("sven", "Bra fråga, troligtvis något många glömmer att tänka på. Jag har bara tjocka kaffekoppar hemma.", 1, "answer"),
     ("kalle", "Ok tack för ditt svar", 2, "comment"),
     ("sven", "En kommentar till din fråga men ej svar", 1, "comment");
 

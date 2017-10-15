@@ -1,6 +1,6 @@
 <?php
 
-namespace Nicklas\Comment;
+namespace Nicklas\Comment\Modules;
 
 /**
  * A database driven model.
@@ -23,6 +23,7 @@ class User extends ActiveRecordModelExtender
     public $email;
     public $pass;
     public $authority = "user";
+    public $question;
 
 
     /**
@@ -75,5 +76,20 @@ class User extends ActiveRecordModelExtender
     {
         $this->find("name", $name);
         return password_verify($pass, $this->pass);
+    }
+
+    /**
+     * Verify the name and the anaswer, if successful the object contains
+     * all details from the database row.
+     *
+     * @param string $name  name to check.
+     * @param string $answer the answer.
+     *
+     * @return boolean true if name and pass matches, else false.
+     */
+    public function verifyQuestion($name, $answer)
+    {
+        $this->find("name", $name);
+        return ($this->question == $answer);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Nicklas\Comment\HTMLForm;
+namespace Nicklas\Comment\HTMLForm\Admin;
 
 use \Anax\HTMLForm\FormModel;
 use \Anax\DI\DIInterface;
-use \Nicklas\Comment\User;
+use \Nicklas\Comment\Modules\User;
 
 /**
  * Example of FormModel implementation.
