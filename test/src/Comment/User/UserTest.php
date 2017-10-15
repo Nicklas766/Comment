@@ -1,6 +1,6 @@
 <?php
 
-namespace Nicklas\Comment;
+namespace Nicklas\Comment\Modules;
 
 /**
  * Test cases for class Navbar
@@ -23,6 +23,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->user = new User(self::$di);
         $this->user->setDb(self::$di->get("db"));
         $this->user->email = "user@anaxtesting.com";
+        $this->user->question = "lasagne";
     }
     /**
      * Test case to construct object and verify that the object
@@ -31,7 +32,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateObject()
     {
-        $this->assertInstanceOf("Nicklas\Comment\User", $this->user);
+        $this->assertInstanceOf("Nicklas\Comment\Modules\User", $this->user);
     }
 
     /**

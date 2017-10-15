@@ -7,6 +7,7 @@ use \Nicklas\Comment\HTMLForm\Admin\CreateUserForm2;
 
 // MODULES
 use \Nicklas\Comment\Modules\User;
+
 /**
  * A controller class.
  */

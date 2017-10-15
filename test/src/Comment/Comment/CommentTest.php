@@ -1,6 +1,6 @@
 <?php
 
-namespace Nicklas\Comment;
+namespace Nicklas\Comment\Modules;
 
 /**
  * Test cases for class Comment
@@ -33,7 +33,7 @@ class CommentTest extends \PHPUnit_Framework_TestCase
     public function testCreateObject()
     {
         $comment = new Comment();
-        $this->assertInstanceOf("Nicklas\Comment\Comment", $comment);
+        $this->assertInstanceOf("Nicklas\Comment\Modules\Comment", $comment);
     }
 
     /**
@@ -56,7 +56,6 @@ class CommentTest extends \PHPUnit_Framework_TestCase
         $comment = $this->comment->getPost(3);
         $this->assertEquals($comment->user, "kalle");
         $this->assertEquals($comment->type, "comment");
-
     }
 
     /**

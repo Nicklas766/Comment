@@ -1,8 +1,10 @@
 <?php
 namespace Nicklas\Comment\HTMLForm\User;
+
 use \Anax\HTMLForm\FormModel;
 use \Anax\DI\DIInterface;
 use \Nicklas\Comment\Modules\User;
+
 /**
  * Example of FormModel implementation.
  */
@@ -63,7 +65,8 @@ class UserResetForm extends FormModel
         if ($res) {
             $this->form->rememberValues();
             $random = substr(md5(mt_rand()), 0, 7);
-            $this->form->addOutput("Rätt! Ditt lösenord har ändrats till <b>'{$random}'</b>. Ange det när du loggar in och byt sedan till valfritt i din profilsida.");
+            $this->form->addOutput("Rätt! Ditt lösenord har ändrats till <b>'{$random}'</b>.
+             Ange det när du loggar in och byt sedan till valfritt i din profilsida.");
             $user->setPassword($random);
             $user->save();
             return true;

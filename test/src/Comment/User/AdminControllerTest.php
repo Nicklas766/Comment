@@ -2,6 +2,8 @@
 
 namespace Nicklas\Comment;
 
+use Nicklas\Comment\Modules\User;
+
 /**
  * Test cases for class Comment
  */
@@ -82,6 +84,5 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase
 
         // commentController
         $this->adminController->getIndex();
-        $this->adminController->getPostEditComment(1);
     }
 }

@@ -5,6 +5,7 @@ namespace Nicklas\Comment;
 use \Nicklas\Comment\HTMLForm\Profile\EditProfileForm;
 use \Nicklas\Comment\HTMLForm\Profile\UpdateProfileSecurityForm;
 use \Nicklas\Comment\Modules\User;
+
 /**
  * A controller class.
  */

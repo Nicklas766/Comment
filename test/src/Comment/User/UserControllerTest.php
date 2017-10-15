@@ -2,6 +2,8 @@
 
 namespace Nicklas\Comment;
 
+use Nicklas\Comment\Modules\User;
+
 /**
  * Test cases for class Comment
  */

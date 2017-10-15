@@ -1,9 +1,9 @@
 <?php
 
-namespace Nicklas\Comment\HTMLForm;
+namespace Nicklas\Comment\HTMLForm\User;
 
-use Nicklas\Comment\User;
-use Nicklas\Comment\Comment;
+use Nicklas\Comment\Modules\User;
+use Nicklas\Comment\Modules\Comment;
 
 /**
  * Test cases for class Navbar

@@ -1,8 +1,8 @@
 <?php
 
-namespace Nicklas\Comment\HTMLForm;
+namespace Nicklas\Comment\HTMLForm\Admin;
 
-use Nicklas\Comment\User;
+use Nicklas\Comment\Modules\User;
 
 /**
  * Test cases for class Navbar
@@ -46,11 +46,5 @@ class EditUserFormTest extends \PHPUnit_Framework_TestCase
     {
         $this->form = new EditUserForm(self::$di, $this->lastId);
         $this->assertEquals($this->form, new EditUserForm(self::$di, $this->lastId));
-    }
-
-    public function testCallBack()
-    {
-        $this->form = new EditUserForm(self::$di, $this->lastId);
-        $this->form->callbackSubmit();
     }
 }

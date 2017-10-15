@@ -87,20 +87,20 @@ class UserController implements
     *
     * @return void
     */
-   public function getPostReset()
-   {
-       $form       = new UserResetForm($this->di);
-       $form->check();
+    public function getPostReset()
+    {
+        $form       = new UserResetForm($this->di);
+        $form->check();
 
-       $views = [
-           ["user/pre/reset", ["form" => $form->getHTML()], "main"]
-       ];
+        $views = [
+            ["user/pre/reset", ["form" => $form->getHTML()], "main"]
+        ];
 
-       $this->di->get("pageRenderComment")->renderPage([
-           "views" => $views,
-           "title" => "Reset password"
-       ]);
-   }
+        $this->di->get("pageRenderComment")->renderPage([
+            "views" => $views,
+            "title" => "Reset password"
+        ]);
+    }
 
 
 

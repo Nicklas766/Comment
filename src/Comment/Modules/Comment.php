@@ -75,22 +75,22 @@ class Comment extends ActiveRecordModelExtender
      *
      * @return object
     */
-        public function getPost($id)
-        {
-            $post = $this->find("id", $id);
+    public function getPost($id)
+    {
+        $post = $this->find("id", $id);
 
-            // Get user who posted
-            $user = new User();
-            $user->setDb($this->di->get("db"));
-            $user->find("name", $post->user);
+        // Get user who posted
+        $user = new User();
+        $user->setDb($this->di->get("db"));
+        $user->find("name", $post->user);
 
-            // Start setting attributes
-            $post->comments = $this->getPosts("parentId = ? AND type = ?", [$id, "comment"]);
-            $post->img = $this->gravatar($user->email);
-            $post->markdown = $this->getMD($post->text);
+        // Start setting attributes
+        $post->comments = $this->getPosts("parentId = ? AND type = ?", [$id, "comment"]);
+        $post->img = $this->gravatar($user->email);
+        $post->markdown = $this->getMD($post->text);
 
-            return $post;
-        }
+        return $post;
+    }
 
 
 

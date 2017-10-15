@@ -5,6 +5,8 @@ namespace Nicklas\Comment;
 use \Nicklas\Comment\HTMLForm\Comment\CreateCommentForm;
 use \Nicklas\Comment\HTMLForm\Comment\EditCommentForm;
 
+use Nicklas\Comment\Modules\Comment;
+
 /**
  * Extends the UserController, for comments
  */
@@ -36,6 +38,9 @@ class CommentController extends AdminController
             ];
         }
 
-        $this->renderPage($views, "A collection of comments");
+        $this->di->get("pageRenderComment")->renderPage([
+            "views" => $views,
+            "title" => "Create a comment"
+        ]);
     }
 }

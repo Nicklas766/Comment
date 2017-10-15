@@ -4,6 +4,7 @@ namespace Nicklas\Comment\HTMLForm\Profile;
 use \Anax\HTMLForm\FormModel;
 use \Anax\DI\DIInterface;
 use \Nicklas\Comment\Modules\User;
+
 /**
  * Example of FormModel implementation.
  */
@@ -83,7 +84,8 @@ class UpdateProfileSecurityForm extends FormModel
 
         $this->user->setPassword($password);
         $this->user->save();
-        $this->form->addOutput("<p>Du ändrade ditt lösenord!</p> <p>TIPS:Innan du loggar ut, kontrollera så din kontrollfråga stämmer ifall du glömmer bort</p>");
+        $this->form->addOutput("<p>Du ändrade ditt lösenord!</p>
+        <p>TIPS:Innan du loggar ut, kontrollera så din kontrollfråga stämmer ifall du glömmer bort</p>");
         return true;
     }
 
