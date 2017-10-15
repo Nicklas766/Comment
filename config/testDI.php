@@ -169,14 +169,16 @@ return [
                 // COMMENT TABLE
                 $sql = 'CREATE TABLE `ramverk1_comments`
                 (
-                  `id` INTEGER PRIMARY KEY NOT NULL,
-                  `user` VARCHAR(100) NOT NULL,
-                  `text` text,
-                  `parentId` INT,
-                  `type` VARCHAR(100) NOT NULL,
-                  `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                  `status` VARCHAR(20) DEFAULT active,
-                  FOREIGN KEY (`user`) REFERENCES `ramverk1_users` (`name`)
+                    `id` INTEGER PRIMARY KEY NOT NULL,
+                    `user` VARCHAR(100) NOT NULL,
+                    `type` VARCHAR(100) NOT NULL,
+                    `parentId` INT,
+                    `title` text,
+                    `tags` text,
+                    `text` text,
+                    `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    `status` VARCHAR(20) DEFAULT active,
+                    FOREIGN KEY (`user`) REFERENCES `ramverk1_users` (`name`)
                 )';
                 $obj->execute($sql);
 
@@ -189,13 +191,13 @@ return [
                     ("sven", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
                     ("user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne")';
                 $obj->execute($sql);
-                $sql = 'INSERT INTO `ramverk1_comments` (`user`, `text`, `parentId`, `type`) VALUES
-                    ("kalle", "Hej bör kaffe drickas ur tjocka koppar eller smala? Vad gillar ni mest? Personligen så föredrar jag smala.", 0, "question"),
-                    ("sven", "Bra fråga, troligtvis något många glömmer att tänka på. Jag har bara tjocka kaffekoppar hemma.", 1, "answer"),
-                    ("kalle", "Ok tack för ditt svar", 2, "comment"),
-                    ("sven", "En kommentar till din fråga men ej svar", 1, "comment"),
-                    ("kalle", "Tack för din kommentar på min fråga", 1, "comment"),
-                    ("sven", "En fråga", 0, "question")';
+                $sql = 'INSERT INTO `ramverk1_comments` (`user`, `type`, `parentId`, `title`, `tags`, `text`) VALUES
+                    ("kalle", "question", 0, "Fråga om kaffekoppar", "#mugg,#kaffe", "Hej bör kaffe drickas ur tjocka koppar eller smala? Vad gillar ni mest? Personligen så föredrar jag smala."),
+                    ("sven", "answer", 1, "", "", "Bra fråga, troligtvis något många glömmer att tänka på. Jag har bara tjocka kaffekoppar hemma."),
+                    ("kalle", "comment", 2, "", "", "Ok tack för ditt svar"),
+                    ("sven", "comment", 1, "", "",  "En kommentar till din fråga men ej svar"),
+                    ("kalle", "comment", 1, "", "",  "Tack för din kommentar på min fråga"),
+                    ("sven", "question", 0, "En fråga", "#mugg,#kaffe", "En fråga")';
                 $obj->execute($sql);
 
 

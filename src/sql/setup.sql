@@ -30,14 +30,18 @@ CREATE TABLE `ramverk1_users`
 
 
 
+
 CREATE TABLE `ramverk1_comments`
 (
   `id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   `user` VARCHAR(100) NOT NULL,
+  `type` VARCHAR(100) NOT NULL,
+  `parentId` INT,
+
+  `title` text,
+  `tags` text,
   `text` text,
 
-  `parentId` INT,
-  `type` VARCHAR(100) NOT NULL,
 
   `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `status` VARCHAR(20) DEFAULT 'active',
@@ -64,11 +68,18 @@ INSERT INTO `ramverk1_users` (`name`, `email`, `pass`, `authority`, `question`) 
     ("user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne");
 
 
-INSERT INTO `ramverk1_comments` (`user`, `text`, `parentId`, `type`) VALUES
-    ("kalle", "Hej bör kaffe drickas ur tjocka koppar eller smala? Vad gillar ni mest? Personligen så föredrar jag smala.", 0, "question"),
-    ("sven", "Bra fråga, troligtvis något många glömmer att tänka på. Jag har bara tjocka kaffekoppar hemma.", 1, "answer"),
-    ("kalle", "Ok tack för ditt svar", 2, "comment"),
-    ("sven", "En kommentar till din fråga men ej svar", 1, "comment");
+INSERT INTO `ramverk1_comments` (`user`, `type`, `parentId`, `title`, `tags`, `text`) VALUES
+    ("kalle", "question", 0, "Fråga om kaffekoppar", "#mugg,#kaffe", "Hej bör kaffe drickas ur tjocka koppar eller smala? Vad gillar ni mest? Personligen så föredrar jag smala."),
+
+    ("sven", "answer", 1, "", "", "Bra fråga, troligtvis något många glömmer att tänka på. Jag har bara tjocka kaffekoppar hemma."),
+
+    ("kalle", "comment", 2, "", "", "Ok tack för ditt svar"),
+
+    ("sven", "comment", 1, "", "",  "En kommentar till din fråga men ej svar"),
+
+    ("kalle", "comment", 1, "", "",  "Tack för din kommentar på min fråga"),
+
+    ("sven", "question", 0, "En fråga", "#mugg,#kaffe", "En fråga");
 
 
 

@@ -2,10 +2,10 @@
 
 namespace Nicklas\Comment;
 
-use \Nicklas\Comment\HTMLForm\Comment\CreateCommentForm;
+use \Nicklas\Comment\HTMLForm\Comment\CreateQuestionForm;
 use \Nicklas\Comment\HTMLForm\Comment\EditCommentForm;
 
-use Nicklas\Comment\Modules\Comment;
+use \Nicklas\Comment\Modules\Comment;
 
 /**
  * Extends the UserController, for comments
@@ -24,11 +24,32 @@ class CommentController extends AdminController
         $comment = new Comment($this->di);
         $comment->setDb($this->di->get("db"));
 
-        $form       = new CreateCommentForm($this->di);
+        $views = [
+            ["comment/crud/view-all", ["questions" => $comment->getPosts("type = ?", ["question"])], "main"]
+        ];
+
+        $this->di->get("pageRenderComment")->renderPage([
+            "views" => $views,
+            "title" => "All questions"
+        ]);
+    }
+
+    /**
+     * Show all items.
+     *
+     * @return void
+     */
+    public function getPostCreateQuestion()
+    {
+        $comment = new Comment($this->di);
+        $comment->setDb($this->di->get("db"));
+
+        $form       = new CreateQuestionForm($this->di);
         $form->check();
 
         $views = [
-            ["comment/makeComment", ["form" => $form->getHTML()], "main"]
+            ["comment/crud/createQuestion", ["form" => $form->getHTML()], "main"],
+            ["comment/crud/view-all", ["questions" => $comment->getPosts("type = ?", ["question"])], "main"]
         ];
 
         // If not logged in, render other views
@@ -40,7 +61,32 @@ class CommentController extends AdminController
 
         $this->di->get("pageRenderComment")->renderPage([
             "views" => $views,
-            "title" => "Create a comment"
+            "title" => "Create your question"
         ]);
+    }
+
+    /**
+     * Show all items.
+     *
+     * @return void
+     */
+    public function getPostQuestionAnswer($id)
+    {
+        $question = new Comment($this->di);
+        $question->setDb($this->di->get("db"));
+
+        $question = $question->getPost($id);
+
+        // If not logged in, render other views
+        if ($question->type == "question") {
+            $views = [
+                ["comment/crud/question", ["question" => $question], "main"]
+             ];
+            $this->di->get("pageRenderComment")->renderPage([
+                "views" => $views,
+                "title" => "Create your question"
+            ]);
+        }
+        return false;
     }
 }

@@ -19,16 +19,17 @@ class Comment extends ActiveRecordModelExtender
      * @var integer $id primary key auto incremented.
      */
     public $id;
-    public $di;
-
-
-    public $text;
-
-    public $parentId; # All posts have different ids
     public $type; # question/answer/comment
+    public $parentId; # All posts have different ids
+
+    public $title;
+    public $tags;
+    public $text;
 
     public $created;
     public $status; # default is active
+
+    public $di;
 
 
 
@@ -63,6 +64,10 @@ class Comment extends ActiveRecordModelExtender
             $user->setDb($this->di->get("db"));
             $user->find("name", $post->user);
 
+
+            $post->comments = $this->getPosts("parentId = ? AND type = ?", [$post->id, "comment"]);
+            $post->tags = explode(',', $post->tags);
+
             $post->img = $this->gravatar($user->email);
             $post->markdown = $this->getMD($post->text);
 
@@ -85,9 +90,16 @@ class Comment extends ActiveRecordModelExtender
         $user->find("name", $post->user);
 
         // Start setting attributes
-        $post->comments = $this->getPosts("parentId = ? AND type = ?", [$id, "comment"]);
         $post->img = $this->gravatar($user->email);
         $post->markdown = $this->getMD($post->text);
+        $post->tags = explode(',', $post->tags);
+        $post->comments = $this->getPosts("parentId = ? AND type = ?", [$id, "comment"]);
+
+
+
+        if ($post->type == "question") {
+            $post->answers = $this->getPosts("parentId = ? AND type = ?", [$id, "answer"]);
+        }
 
         return $post;
     }

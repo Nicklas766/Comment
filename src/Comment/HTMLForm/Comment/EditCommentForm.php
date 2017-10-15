@@ -1,11 +1,11 @@
 <?php
 
-namespace Nicklas\Comment\HTMLForm\Comment;
+namespace Nicklas\Comment\HTMLForm;
 
 use \Anax\HTMLForm\FormModel;
 use \Anax\DI\DIInterface;
-use \Nicklas\Comment\Modules\User;
-use \Nicklas\Comment\Modules\Comment;
+use \Nicklas\Comment\User;
+use \Nicklas\Comment\Comment;
 
 /**
  * Form to update an item.
@@ -65,9 +65,9 @@ class EditCommentForm extends FormModel
      */
     public function getCommentDetails($id)
     {
-        $comment = new Comment($this->di);
+        $comment = new Comment();
         $comment->setDb($this->di->get("db"));
-        $comment->getPost($id);
+        $comment->find("id", $id);
         return $comment;
     }
 
