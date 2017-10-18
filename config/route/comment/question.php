@@ -31,5 +31,11 @@ return [
             "path" => "tagged/{dataset:alphanum}",
             "callable" => ["commentFrontController", "getTaggedQuestions"],
         ],
+        [
+            "info" => "On this route POST to comment, idea is ajax",
+            "requestMethod" => "post",
+            "path" => "comment/{id:digit}",
+            "callable" => ["commentFrontController", "postComment"],
+        ],
     ]
 ];

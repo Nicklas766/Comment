@@ -4,8 +4,8 @@ namespace Nicklas\Comment\HTMLForm\Comment;
 
 use \Anax\HTMLForm\FormModel;
 use \Anax\DI\DIInterface;
-use \Nicklas\Comment\Modules\User;
-use \Nicklas\Comment\Modules\Comment;
+use \Nicklas\Comment\Modules\Question;
+use \Nicklas\Comment\Modules\Post;
 
 /**
  * Example of FormModel implementation.
@@ -35,7 +35,7 @@ class CreateQuestionForm extends FormModel
                     "label" => "Du kan ange fler än en tag. Men du behöver ange minst en.",
                     "placeholder" => "#tags"
                 ],
-                "question" => [
+                "text" => [
                     "type"        => "textarea",
                     "label" => "Här kan du skriva din fråga",
                     "placeholder" => "Din fråga"
@@ -74,10 +74,7 @@ class CreateQuestionForm extends FormModel
         // Get values from the submitted form
         $title          = $this->form->value("title");
         $tags           = $this->getHashtags($this->form->value("tags"));
-        $question       = $this->form->value("question");
-
-        $comment = new Comment();
-        $comment->setDb($this->di->get("db"));
+        $text       = $this->form->value("text");
 
         if (!$this->di->get('session')->has("user")) {
             $this->form->addOutput("Du behöver logga in");
@@ -95,12 +92,20 @@ class CreateQuestionForm extends FormModel
 
         $user = $this->di->get('session')->get("user"); # get user name
 
-        $comment->user       = $user;
-        $comment->title      = $title;
-        $comment->tags       = $tags;
-        $comment->text       = $question;
-        $comment->type       = "question";
-        $comment->save();
+        $question = new Question($this->di->get("db"));
+        $question->user       = $user;
+        $question->title      = $title;
+        $question->tags       = $tags;
+        $question->save();
+
+
+        $post     = new Post($this->di->get("db"));
+        $post->questionId = $question->id;
+        $post->user       = $user;
+        $post->text       = $text;
+        $post->type       = "question";
+        $post->save();
+
 
         $this->form->addOutput("Du skapade en fråga! Du bör se den nedan");
         return true;

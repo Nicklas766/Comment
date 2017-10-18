@@ -8,7 +8,11 @@
 
 Comment Module for Anax
 ==================================
-
+Why this?
+------------------
+Well, maybe you are a front-end developer and quickly want to have a, loginsystem,
+commentsystem, questionsystem for anax quick. Well here you get default views with minimal
+style, so you can edit them.
 
 About
 ------------------

@@ -21,8 +21,7 @@ class ProfileController extends UserController
      */
     public function getUserDetails($name)
     {
-        $user = new User();
-        $user->setDb($this->di->get("db"));
+        $user = new User($this->di->get("db"));
         $user->find("name", $name);
         $user->setGravatar();
         return $user;

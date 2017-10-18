@@ -82,45 +82,45 @@ CREATE TABLE `ramverk1_comments`
 -- ----------------------------------------------------------------------
 
 INSERT INTO `ramverk1_users` (`name`, `email`, `pass`, `authority`, `question`) VALUES
-    ("admin", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin", "lasagne"),
-    ("nicklas", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("anders", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("kalle", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("sven", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("jessica", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne");
+    ('admin', 'admin@admin.com', '$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC', 'admin', 'lasagne'),
+    ('nicklas', 'admin@admin.com', '$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC', 'user', 'lasagne'),
+    ('anders', 'admin@admin.com', '$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC', 'user', 'lasagne'),
+    ('kalle', 'admin@admin.com', '$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC', 'user', 'lasagne'),
+    ('sven', 'admin@admin.com', '$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC', 'user', 'lasagne'),
+    ('jessica', 'admin@admin.com', '$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC', 'user', 'lasagne'),
+    ('user', 'admin@admin.com', '$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC', 'user', 'lasagne');
 
 
--- "Funktionell programmering! Har ni sett de senaste uppdateringarna i javascript?"
--- "Hej, du har nog råkat besöka fel hemsida, jag tror du söker.."
+-- 'Funktionell programmering! Har ni sett de senaste uppdateringarna i javascript?'
+-- 'Hej, du har nog råkat besöka fel hemsida, jag tror du söker..'
 
 -- QUESTIONS 1
 -- ----------------------------------------------------------------------
 
 INSERT INTO `ramverk1_questions` (`user`, `title`, `tags`) VALUES
-    ("kalle", "Fråga om kaffe koppar", "#mugg,#kaffe");
+    ('kalle', 'Fråga om kaffe koppar', '#mugg,#kaffe');
 
 INSERT INTO `ramverk1_posts` (`questionId`, `user`, `type`, `text`) VALUES
-    (1, "kalle", "question", "Hej bör kaffe drickas ur tjocka koppar eller smala? Vad gillar ni mest? Personligen så föredrar jag smala."),
-    (1, "sven", "answer", "Bra fråga, troligtvis något många glömmer att tänka på. Jag har bara tjocka kaffekoppar hemma."),
-    (1, "jessica", "answer", "Personligen så föredrar jag att variera, varför använda endast en?");
+    (1, 'kalle', 'question', 'Hej bör kaffe drickas ur tjocka koppar eller smala? Vad gillar ni mest? Personligen så föredrar jag smala.'),
+    (1, 'sven', 'answer', 'Bra fråga, troligtvis något många glömmer att tänka på. Jag har bara tjocka kaffekoppar hemma.'),
+    (1, 'jessica', 'answer', 'Personligen så föredrar jag att variera, varför använda endast en?');
 
 
 INSERT INTO `ramverk1_comments` (`parentId`, `user`, `text`) VALUES
-    (2, "kalle", "Ok tack för ditt svar Sven!"),
-    (3, "sven", "Hmm, du har en poäng jag ska köpa några smala koppar idag.");
+    (2, 'kalle', 'Ok tack för ditt svar Sven!'),
+    (3, 'sven', 'Hmm, du har en poäng jag ska köpa några smala koppar idag.');
 
 -- QUESTIONS 2
 -- ----------------------------------------------------------------------
 INSERT INTO `ramverk1_questions` (`user`, `title`, `tags`) VALUES
-    ("nicklas", "Vilken tésort bör jag köpa?", "#té,#tésort");
+    ('nicklas', 'Vilken tésort bör jag köpa?', '#té,#tésort');
 
 INSERT INTO `ramverk1_posts` (`questionId`, `user`, `type`, `text`) VALUES
-    (2, "nicklas", "question", "Hej alla! Vilken tésort bör jag köpa? Gärna att den är rik med antioxidanter."),
-    (2, "sven", "answer", "Jag gillar roobius, köp den!");
+    (2, 'nicklas', 'question', 'Hej alla! Vilken tésort bör jag köpa? Gärna att den är rik med antioxidanter.'),
+    (2, 'sven', 'answer', 'Jag gillar roobius, köp den!');
 
 INSERT INTO `ramverk1_comments` (`parentId`, `user`, `text`) VALUES
-    (4, "kalle", "Jag älskar té, men detta är fel hemsida.."),
-    (5, "kalle", "uppmuntra honom inte..");
+    (4, 'kalle', 'Jag älskar té, men detta är fel hemsida..'),
+    (5, 'kalle', 'uppmuntra honom inte..');
 
 -- ------------------------------------------------------------------------

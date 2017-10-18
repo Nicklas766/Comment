@@ -15,14 +15,13 @@ class CommentController extends AdminController
 
 
     /**
-     * Show all items.
+     * Shows the post(question or answer) and create comment form
      *
      * @return void
      */
-    public function getIndex()
+    public function getPostCreateComment($id)
     {
-        $question = new Question($this->di);
-        $question->setDb($this->di->get("db"));
+        $question = new Question($this->di->get("db"));
 
         $views = [
             ["comment/question/view-all", ["questions" => $question->getQuestions()], "main"]
@@ -32,80 +31,5 @@ class CommentController extends AdminController
             "views" => $views,
             "title" => "All questions"
         ]);
-    }
-    /**
-     * Show all items.
-     *
-     * @return void
-     */
-    public function getTaggedQuestions($tag)
-    {
-        $comment = new Comment($this->di);
-        $comment->setDb($this->di->get("db"));
-
-        $views = [
-            ["comment/crud/view-all", ["questions" => $comment->getPosts("tags LIKE ?", [$tag])], "main"]
-        ];
-
-        $this->di->get("pageRenderComment")->renderPage([
-            "views" => $views,
-            "title" => "Questions | $tag"
-        ]);
-    }
-
-    /**
-     * View all comments and create question form
-     *
-     * @return void
-     */
-    public function getPostCreateQuestion()
-    {
-        $comment = new Comment($this->di);
-        $comment->setDb($this->di->get("db"));
-
-        $form       = new CreateQuestionForm($this->di);
-        $form->check();
-
-        $views = [
-            ["comment/crud/createQuestion", ["form" => $form->getHTML()], "main"],
-            ["comment/crud/view-all", ["questions" => $comment->getPosts("type = ?", ["question"])], "main"]
-        ];
-
-        // If not logged in, render other views
-        if (!$this->di->get("session")->has("user")) {
-            $views = [
-                ["comment/loginComment", [], "main"]
-            ];
-        }
-
-        $this->di->get("pageRenderComment")->renderPage([
-            "views" => $views,
-            "title" => "Create your question"
-        ]);
-    }
-
-    /**
-     * View specific question and create answer form
-     *
-     * @return void
-     */
-    public function getPostQuestionAnswer($id)
-    {
-        $question = new Question($this->di);
-        $question->setDb($this->di->get("db"));
-
-        $question = $question->getQuestion($id);
-
-        // If not logged in, render other views
-        if ($question->type == "question") {
-            $views = [
-                ["comment/question/view-question", ["question" => $question], "main"]
-             ];
-            $this->di->get("pageRenderComment")->renderPage([
-                "views" => $views,
-                "title" => "Create your question"
-            ]);
-        }
-        return false;
     }
 }

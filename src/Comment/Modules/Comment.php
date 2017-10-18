@@ -19,11 +19,9 @@ class Comment extends ActiveRecordModelExtender
      * @var integer $id primary key auto incremented.
      */
     public $id;
-    public $type; # question/answer/comment
+    public $user; # question/answer/comment
     public $parentId; # All posts have different ids
 
-    public $title;
-    public $tags;
     public $text;
 
     public $created;

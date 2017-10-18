@@ -22,8 +22,7 @@ class AdminController extends ProfileController
      */
     public function getUsers()
     {
-        $user = new User();
-        $user->setDb($this->di->get("db"));
+        $user = new User($this->di->get("db"));
         $users = $user->findAll();
 
         return array_map(function ($user) {
@@ -42,8 +41,7 @@ class AdminController extends ProfileController
     {
         $this->checkIsLogin();
 
-        $user = new User();
-        $user->setDb($this->di->get("db"));
+        $user = new User($this->di->get("db"));
         $user = $user->find("name", $this->di->get("session")->get("user"));
 
         if ($user->authority != "admin") {
