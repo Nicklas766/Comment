@@ -28,17 +28,6 @@ class Comment extends ActiveRecordModelExtender
 
     public $created;
 
-    public $di;
-
-
-    /**
-     * Constructor injects with DI container.
-     *
-     */
-    public function __construct($di = null)
-    {
-        $this->di = $di;
-    }
     /**
      * Returns post with markdown and gravatar
      * @param string $sql
@@ -48,21 +37,15 @@ class Comment extends ActiveRecordModelExtender
      */
     public function getComments($sql, $params)
     {
-        $posts = $this->findAllWhere("$sql", $params);
+        $comments = $this->findAllWhere("$sql", $params);
 
-        return array_map(function ($post) {
-            $user = new User();
-            $user->setDb($this->di->get("db"));
-            $user->find("name", $post->user);
+        return array_map(function ($comment) {
+            $user = new User($this->db);
+            $user->find("name", $comment->user);
+            $comment->img = $this->gravatar($user->email);
+            $comment->markdown = $this->getMD($comment->text);
 
-
-            $post->comments = $this->getPosts("parentId = ? AND type = ?", [$post->id, "comment"]);
-            $post->tags = explode(',', $post->tags);
-
-            $post->img = $this->gravatar($user->email);
-            $post->markdown = $this->getMD($post->text);
-
-            return $post;
-        }, $posts);
+            return $comment;
+        }, $comments);
     }
 }

@@ -27,17 +27,6 @@ class Question extends ActiveRecordModelExtender
     public $created;
     public $status; # default is active
 
-    public $di;
-
-
-    /**
-     * Constructor injects with DI container.
-     *
-     */
-    public function __construct($di = null)
-    {
-        $this->di = $di;
-    }
 
     /**
      * Returns post with markdown and gravatar
@@ -46,15 +35,19 @@ class Question extends ActiveRecordModelExtender
      *
      * @return array
      */
-    public function getQuestions($sql, $params)
+    public function getQuestions($sql = null, $params = null)
     {
-        $questions = $this->findAllWhere("$sql", $params);
+        if ($sql == null) {
+            $questions = $this->findAll();
+        }
+        if ($sql != null) {
+            $questions = $this->findAllWhere("$sql", $params);
+        }
 
         return array_map(function ($question) {
 
             // Find users email
-            $user = new User();
-            $user->setDb($this->di->get("db"));
+            $user = new User($this->db);
             $user->find("name", $question->user);
 
             // Start setting attributes
@@ -77,11 +70,10 @@ class Question extends ActiveRecordModelExtender
         $question = $this->find("id", $id);
 
         // Add attributes from Post class
-        $post = new Posts();
-        $post->setDb($this->di->get("db"));
+        $post = new Post($this->db);
 
-        $question->question = $post->getPost("questionId = ? AND type = ?", [$post->id, "question"]);
-        $question->answers = $post->getAllPosts("questionId = ? AND type = ?", [$post->id, "answer"]);
+        $question->question = $post->getPost("questionId = ? AND type = ?", [$question->id, "question"]);
+        $question->answers = $post->getAllPosts("questionId = ? AND type = ?", [$question->id, "answer"]);
         $question->answersCount = count($question->answers);
 
         // Start setting up own attributes
@@ -126,8 +118,7 @@ class Question extends ActiveRecordModelExtender
      */
     public function controlAuthority($name)
     {
-        $user = new User();
-        $user->setDb($this->di->get("db"));
+        $user = new User($this->db);
         $user->find("name", $name);
 
         // IF AUTHORITY == admin, then continue

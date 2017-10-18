@@ -3,13 +3,13 @@
 namespace Nicklas\Comment\Modules;
 
 /**
- * Test cases for class Comment
+ * Test cases for class Question
  */
-class CommentTest extends \PHPUnit_Framework_TestCase
+class QuestionTest extends \PHPUnit_Framework_TestCase
 {
 
 
-    protected $comment;
+    protected $question;
     protected static $di;
 
     public static function setUpBeforeClass()
@@ -21,34 +21,22 @@ class CommentTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->comment = new Comment(self::$di->get("db"));
-    }
-
-    /**
-     * Test case to construct object and verify that the object
-     * has the expected properties due various ways of constructing
-     * it.
-     */
-    public function testCreateObject()
-    {
-        $comment = new Comment(self::$di->get("db"));
-        $this->assertInstanceOf("Nicklas\Comment\Modules\Comment", $comment);
+        $this->question = new Question(self::$di->get("db"));
     }
 
     /**
      * Test case for GetPost function
      * Controls that the return is correct regarding to the function.
      */
-    public function testGetComments()
+    public function testGetQuestions()
     {
-        // First comment should be connected to post 2
-        $comment = $this->comment->getComments("parentId = ?", [2]);
-        $this->assertEquals($comment[0]->user, "kalle");
+        // get all should be 2
+        $questions = $this->question->getQuestions();
+        $this->assertEquals(count($questions), 2);
 
-        // // First should be connected to post 2
-        $comment = $this->comment->getComments("parentId = ?", [3]);
-        $this->assertEquals($comment[0]->user, "sven");
-
+        // Get question 1
+        $question = $this->question->getQuestion(1);
+        $this->assertEquals($question->user, "kalle");
     }
 
     /**
@@ -58,17 +46,17 @@ class CommentTest extends \PHPUnit_Framework_TestCase
     // public function testGetPosts()
     // {
     //     // Should have length of 2, also have type "comment"
-    //     $comments = $this->comment->getPosts("parentId = ? AND type = ?", [1, "comment"]);
-    //     $this->assertEquals(count($comments), 2);
-    //     $this->assertEquals($comments[1]->type, "comment");
+    //     $questions = $this->question->getPosts("parentId = ? AND type = ?", [1, "comment"]);
+    //     $this->assertEquals(count($questions), 2);
+    //     $this->assertEquals($questions[1]->type, "comment");
     //
     //     // Should have all questions made by user "kalle"
-    //     $questions = $this->comment->getPosts("user = ? AND type = ?", ["kalle", "question"]);
+    //     $questions = $this->question->getPosts("user = ? AND type = ?", ["kalle", "question"]);
     //     $this->assertEquals($questions[0]->user, "kalle");
     //     $this->assertEquals(count($questions), 1);
     //
     //     // Should have all questions made by all users
-    //     $questions = $this->comment->getPosts("type = ?", ["question"]);
+    //     $questions = $this->question->getPosts("type = ?", ["question"]);
     //     $this->assertEquals(count($questions), 2);
     // }
 
@@ -79,7 +67,7 @@ class CommentTest extends \PHPUnit_Framework_TestCase
     // public function testGetPopularTags()
     // {
     //     // Should have all questions made by all users
-    //     $tags = $this->comment->getPopularTags();
+    //     $tags = $this->question->getPopularTags();
     //     var_dump($tags);
     //     $this->assertEquals(array_keys($tags)[0], "#kaffe");
     // }
@@ -90,18 +78,18 @@ class CommentTest extends \PHPUnit_Framework_TestCase
      */
     // public function testControlAuthority()
     // {
-    //     $comment = $this->comment->getPost(1);
+    //     $question = $this->question->getPost(1);
     //
     //     // Returns true since user is admin
-    //     $returnedValue = $comment->controlAuthority("admin");
+    //     $returnedValue = $question->controlAuthority("admin");
     //     $this->assertEquals($returnedValue, true);
     //
     //     // Returns true since user made question
-    //     $returnedValue = $comment->controlAuthority("kalle");
+    //     $returnedValue = $question->controlAuthority("kalle");
     //     $this->assertEquals($returnedValue, true);
     //
     //     // Returns false since user didn't create question
-    //     $returnedValue = $comment->controlAuthority("sven");
+    //     $returnedValue = $question->controlAuthority("sven");
     //     $this->assertEquals($returnedValue, false);
     // }
 }

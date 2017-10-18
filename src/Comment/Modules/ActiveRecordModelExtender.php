@@ -5,11 +5,23 @@ namespace Nicklas\Comment\Modules;
 use \Anax\Database\ActiveRecordModel;
 use \Nicklas\Comment;
 
+use \Anax\TextFilter\TextFilter;
+
 /**
  * A database driven model.
  */
 class ActiveRecordModelExtender extends ActiveRecordModel
 {
+
+    public $db;
+    /**
+     * Constructor injects with database
+     *
+     */
+     public function __construct($db = null)
+     {
+         $this->db = $db;
+     }
     /**
      * Returns gravatar link
      *
@@ -32,6 +44,7 @@ class ActiveRecordModelExtender extends ActiveRecordModel
     public function getMD($content)
     {
         $funcArr = ["yamlfrontmatter", "shortcode", "markdown", "titlefromheader"];
-        return $this->di->get('textfilter')->parse($content, $funcArr)->text;
+        $textFilter = new textFilter();
+        return $textFilter->parse($content, $funcArr)->text;
     }
 }

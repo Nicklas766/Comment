@@ -30,14 +30,7 @@ class Post extends ActiveRecordModelExtender
     public $di;
 
 
-    /**
-     * Constructor injects with DI container.
-     *
-     */
-    public function __construct($di = null)
-    {
-        $this->di = $di;
-    }
+
     /**
      * Returns post with markdown and gravatar
      * @param string $sql
@@ -52,14 +45,12 @@ class Post extends ActiveRecordModelExtender
         return array_map(function ($post) {
 
             // Get e-mail for Post
-            $user = new User();
-            $user->setDb($this->di->get("db"));
+            $user = new User($this->db);
             $user->find("name", $post->user);
             $post->img = $this->gravatar($user->email);
 
             // Get comments for Post
-            $comment = new Comment();
-            $comment->setDb($this->di->get("db"));
+            $comment = new Comment($this->db);
             $post->comments = $comment->getComments("parentId = ?", [$post->id]);
 
             // Get text
@@ -78,13 +69,13 @@ class Post extends ActiveRecordModelExtender
     {
         $post = $this->findWhere("$sql", $params);
 
-
         // Get e-mail for question
-        $user = new User();
-        $user->setDb($this->di->get("db"));
+        $user = new User($this->db);
         $user->find("name", $post->user);
         $post->img = $this->gravatar($user->email);
 
+
+        $comment = new Comment($this->db);
         // Start setting attributes
         $post->img = $this->gravatar($user->email);
         $post->markdown = $this->getMD($post->text);

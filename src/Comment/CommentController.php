@@ -5,7 +5,7 @@ namespace Nicklas\Comment;
 use \Nicklas\Comment\HTMLForm\Comment\CreateQuestionForm;
 use \Nicklas\Comment\HTMLForm\Comment\EditCommentForm;
 
-use \Nicklas\Comment\Modules\Comment;
+use \Nicklas\Comment\Modules\Question;
 
 /**
  * Extends the UserController, for comments
@@ -25,7 +25,7 @@ class CommentController extends AdminController
         $question->setDb($this->di->get("db"));
 
         $views = [
-            ["comment/crud/view-all", ["questions" => $question->getQuestions()], "main"]
+            ["comment/question/view-all", ["questions" => $question->getQuestions()], "main"]
         ];
 
         $this->di->get("pageRenderComment")->renderPage([
@@ -91,15 +91,15 @@ class CommentController extends AdminController
      */
     public function getPostQuestionAnswer($id)
     {
-        $question = new Comment($this->di);
+        $question = new Question($this->di);
         $question->setDb($this->di->get("db"));
 
-        $question = $question->getPost($id);
+        $question = $question->getQuestion($id);
 
         // If not logged in, render other views
         if ($question->type == "question") {
             $views = [
-                ["comment/crud/question", ["question" => $question], "main"]
+                ["comment/question/view-question", ["question" => $question], "main"]
              ];
             $this->di->get("pageRenderComment")->renderPage([
                 "views" => $views,
