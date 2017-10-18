@@ -24,11 +24,12 @@ return [
             "path" => "{id:digit}",
             "callable" => ["commentFrontController", "getPostQuestionAnswer"],
         ],
+        // View questions based on tag
         [
-            "info" => "Update an comment",
-            "requestMethod" => "get|post",
-            "path" => "edit/{id:digit}",
-            "callable" => ["commentFrontController", "getPostEditComment"],
+            "info" => "View questions based on tag",
+            "requestMethod" => null,
+            "path" => "tagged/{dataset:alphanum}",
+            "callable" => ["commentFrontController", "getTaggedQuestions"],
         ],
     ]
 ];

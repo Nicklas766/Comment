@@ -29,25 +29,43 @@ CREATE TABLE `ramverk1_users`
 ) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 
+CREATE TABLE `ramverk1_questions`
+(
+  `id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  `user` VARCHAR(100) NOT NULL,
+  `acceptedId` int,
+  `title` text,
+  `tags` text,
+  `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `status` VARCHAR(20) DEFAULT 'active',
+
+  FOREIGN KEY (`user`) REFERENCES `ramverk1_users` (`name`)
+) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
+
+CREATE TABLE `ramverk1_posts`
+(
+  `id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  `user` VARCHAR(100) NOT NULL,
+  `questionId` int,
+  `text` text,
+  `type` text, -- question or answer
+  `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  FOREIGN KEY (`user`) REFERENCES `ramverk1_users` (`name`),
+  FOREIGN KEY (`questionId`) REFERENCES `ramverk1_questions` (`ramverk1_questions1`)
+) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 
 CREATE TABLE `ramverk1_comments`
 (
   `id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   `user` VARCHAR(100) NOT NULL,
-  `type` VARCHAR(100) NOT NULL,
   `parentId` INT,
-
-  `title` text,
-  `tags` text,
   `text` text,
-
-
   `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `status` VARCHAR(20) DEFAULT 'active',
 
-
-  FOREIGN KEY (`user`) REFERENCES `ramverk1_users` (`name`)
+  FOREIGN KEY (`user`) REFERENCES `ramverk1_users` (`name`),
+  FOREIGN KEY (`parentId`) REFERENCES `ramverk1_posts` (`parentId`)
 ) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 

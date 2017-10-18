@@ -21,11 +21,11 @@ class CommentController extends AdminController
      */
     public function getIndex()
     {
-        $comment = new Comment($this->di);
-        $comment->setDb($this->di->get("db"));
+        $question = new Question($this->di);
+        $question->setDb($this->di->get("db"));
 
         $views = [
-            ["comment/crud/view-all", ["questions" => $comment->getPosts("type = ?", ["question"])], "main"]
+            ["comment/crud/view-all", ["questions" => $question->getQuestions()], "main"]
         ];
 
         $this->di->get("pageRenderComment")->renderPage([
@@ -33,9 +33,28 @@ class CommentController extends AdminController
             "title" => "All questions"
         ]);
     }
-
     /**
      * Show all items.
+     *
+     * @return void
+     */
+    public function getTaggedQuestions($tag)
+    {
+        $comment = new Comment($this->di);
+        $comment->setDb($this->di->get("db"));
+
+        $views = [
+            ["comment/crud/view-all", ["questions" => $comment->getPosts("tags LIKE ?", [$tag])], "main"]
+        ];
+
+        $this->di->get("pageRenderComment")->renderPage([
+            "views" => $views,
+            "title" => "Questions | $tag"
+        ]);
+    }
+
+    /**
+     * View all comments and create question form
      *
      * @return void
      */
@@ -66,7 +85,7 @@ class CommentController extends AdminController
     }
 
     /**
-     * Show all items.
+     * View specific question and create answer form
      *
      * @return void
      */

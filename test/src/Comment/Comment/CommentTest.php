@@ -80,6 +80,18 @@ class CommentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test case for GetPopularTags function
+     * Controls that the return is correct regarding to the function.
+     */
+    public function testGetPopularTags()
+    {
+        // Should have all questions made by all users
+        $tags = $this->comment->getPopularTags();
+        var_dump($tags);
+        $this->assertEquals(array_keys($tags)[0], "#kaffe");
+    }
+
+    /**
      * Test case for controlAuthority function
      * Controls that the return is correct regarding to the function.
      */

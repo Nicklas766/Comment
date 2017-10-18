@@ -197,7 +197,7 @@ return [
                     ("kalle", "comment", 2, "", "", "Ok tack för ditt svar"),
                     ("sven", "comment", 1, "", "",  "En kommentar till din fråga men ej svar"),
                     ("kalle", "comment", 1, "", "",  "Tack för din kommentar på min fråga"),
-                    ("sven", "question", 0, "En fråga", "#mugg,#kaffe", "En fråga")';
+                    ("sven", "question", 0, "En fråga", "#mörkrost,#kaffe", "En fråga")';
                 $obj->execute($sql);
 
 

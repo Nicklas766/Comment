@@ -1,0 +1,19 @@
+Gör så att istället för "getPosts" så blir det "getReplies" i Comment.php.
+
+Gör så att det är getQuestions i Questions.php.
+
+
+Gör så att du slipper skriva,
+
+    $user = new User();
+    $user->setDb($this->di->get("db"));
+    $user->find("name", $post->user);
+    $post->img = $this->gravatar($user->email);
+
+    Gör istället en funktion som returnerar använders mejl som en gravatar.
+
+
+
+
+Anledningen är för att det blir lättare att hålla reda på allt, istället för att
+ha "type" för tre olika sorter..

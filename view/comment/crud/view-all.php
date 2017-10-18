@@ -10,7 +10,7 @@
             <h1><a href="<?= $this->url("question/$question->id") ?>"><?=  $question->title ?></a></h1>
 
             <?php foreach ($question->tags as $tag) : ?>
-                <a href="<?= $this->url("questions/tagged/$tag") ?>"><?= $tag ?></a>
+                <a href="<?= $this->url("question/tagged/$tag") ?>"><?= $tag ?></a>
             <?php endforeach; ?>
 
         <?php endforeach; ?>

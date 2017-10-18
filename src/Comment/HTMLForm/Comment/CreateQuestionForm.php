@@ -59,9 +59,8 @@ class CreateQuestionForm extends FormModel
             $hashtagsArray = array_count_values($matches[0]);
             $hashtags = array_keys($hashtagsArray);
             $tags = implode(",", $hashtags);
-            return $tags;
+            return str_replace("#", "", $tags);
         }
-        $tags = implode(",", $hashtags);
         return null;
     }
     /**
