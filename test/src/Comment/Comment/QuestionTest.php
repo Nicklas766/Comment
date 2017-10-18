@@ -22,6 +22,7 @@ class QuestionTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->question = new Question(self::$di->get("db"));
+        $this->user = new User(self::$di->get("db"));
     }
 
     /**
@@ -34,62 +35,38 @@ class QuestionTest extends \PHPUnit_Framework_TestCase
         $questions = $this->question->getQuestions();
         $this->assertEquals(count($questions), 2);
 
+        // get all should be 1
+        $questions = $this->question->getQuestions("user = ?", "kalle");
+        $this->assertEquals(count($questions), 1);
+
         // Get question 1
         $question = $this->question->getQuestion(1);
         $this->assertEquals($question->user, "kalle");
+        $this->assertEquals($question->answerCount, 2);
     }
 
-    /**
-     * Test case for GetPosts function
-     * Controls that the return is correct regarding to the function.
-     */
-    // public function testGetPosts()
-    // {
-    //     // Should have length of 2, also have type "comment"
-    //     $questions = $this->question->getPosts("parentId = ? AND type = ?", [1, "comment"]);
-    //     $this->assertEquals(count($questions), 2);
-    //     $this->assertEquals($questions[1]->type, "comment");
-    //
-    //     // Should have all questions made by user "kalle"
-    //     $questions = $this->question->getPosts("user = ? AND type = ?", ["kalle", "question"]);
-    //     $this->assertEquals($questions[0]->user, "kalle");
-    //     $this->assertEquals(count($questions), 1);
-    //
-    //     // Should have all questions made by all users
-    //     $questions = $this->question->getPosts("type = ?", ["question"]);
-    //     $this->assertEquals(count($questions), 2);
-    // }
 
     /**
      * Test case for GetPopularTags function
      * Controls that the return is correct regarding to the function.
      */
-    // public function testGetPopularTags()
-    // {
-    //     // Should have all questions made by all users
-    //     $tags = $this->question->getPopularTags();
-    //     var_dump($tags);
-    //     $this->assertEquals(array_keys($tags)[0], "#kaffe");
-    // }
+    public function testGetPopularTags()
+    {
+        // Should have all questions made by all users
+        $tags = $this->question->getPopularTags();
+        $this->assertEquals(array_keys($tags)[0], "kaffe");
+    }
 
-    /**
-     * Test case for controlAuthority function
-     * Controls that the return is correct regarding to the function.
-     */
-    // public function testControlAuthority()
-    // {
-    //     $question = $this->question->getPost(1);
-    //
-    //     // Returns true since user is admin
-    //     $returnedValue = $question->controlAuthority("admin");
-    //     $this->assertEquals($returnedValue, true);
-    //
-    //     // Returns true since user made question
-    //     $returnedValue = $question->controlAuthority("kalle");
-    //     $this->assertEquals($returnedValue, true);
-    //
-    //     // Returns false since user didn't create question
-    //     $returnedValue = $question->controlAuthority("sven");
-    //     $this->assertEquals($returnedValue, false);
-    // }
+    // /**
+    //  * Test case for controlAuthority function
+    //  * Controls that the return is correct regarding to the function.
+    //  */
+    public function testControlAuthority()
+    {
+        // Control authority for kalles question
+        $question = $this->question->getQuestion(1);
+        $this->assertEquals($this->user->controlAuthority("admin", $question->user), true);
+        $this->assertEquals($this->user->controlAuthority("kalle", $question->user), true);
+        $this->assertEquals($this->user->controlAuthority("sven", $question->user), false);
+    }
 }

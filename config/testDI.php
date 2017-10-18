@@ -216,7 +216,7 @@ return [
 
                 // --------------------------------------------- QUESTIONs 1
                 $sql = 'INSERT INTO `ramverk1_questions` (`user`, `title`, `tags`) VALUES
-                    ("kalle", "Fråga om kaffe koppar", "#mugg,#kaffe")';
+                    ("kalle", "Fråga om kaffe koppar", "mugg,kaffe")';
                 $obj->execute($sql);
 
                 $sql = 'INSERT INTO `ramverk1_posts` (`questionId`, `user`, `type`, `text`) VALUES
@@ -232,7 +232,7 @@ return [
 
                 // --------------------------------------------- QUESTIONs 2
                 $sql = 'INSERT INTO `ramverk1_questions` (`user`, `title`, `tags`) VALUES
-                    ("nicklas", "Vilken tésort bör jag köpa?", "#té,#tésort")';
+                    ("nicklas", "Vilken tésort bör jag köpa?", "té,tésort,kaffe")';
                 $obj->execute($sql);
 
                 $sql = 'INSERT INTO `ramverk1_posts` (`questionId`, `user`, `type`, `text`) VALUES

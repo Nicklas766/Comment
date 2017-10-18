@@ -46,8 +46,7 @@ class Post extends ActiveRecordModelExtender
 
             // Get e-mail for Post
             $user = new User($this->db);
-            $user->find("name", $post->user);
-            $post->img = $this->gravatar($user->email);
+            $post->img = $user->getGravatar($post->user);
 
             // Get comments for Post
             $comment = new Comment($this->db);
@@ -71,35 +70,14 @@ class Post extends ActiveRecordModelExtender
 
         // Get e-mail for question
         $user = new User($this->db);
-        $user->find("name", $post->user);
-        $post->img = $this->gravatar($user->email);
+        $post->img = $user->getGravatar($post->user);
 
 
         $comment = new Comment($this->db);
         // Start setting attributes
-        $post->img = $this->gravatar($user->email);
         $post->markdown = $this->getMD($post->text);
         $post->comments = $comment->getComments("parentId = ?", [$post->id]);
 
         return $post;
-    }
-
-    /**
-     * Check if a post belongs to user
-     *
-     *
-     * @return boolean
-     */
-    public function controlAuthority($name)
-    {
-        $user = new User();
-        $user->setDb($this->di->get("db"));
-        $user->find("name", $name);
-
-        // IF AUTHORITY == admin, then continue
-        if ($user->authority != "admin") {
-            return ($user->name == $this->user);
-        }
-        return true;
     }
 }

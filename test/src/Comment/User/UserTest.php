@@ -88,4 +88,17 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $returnedValue = $this->user->verifyPassword("Andrew", "password2");
         $this->assertEquals($returnedValue, false);
     }
+
+    /**
+     * Test case for verifyPassword function
+     * Controls that the return is correct regarding to the function.
+     */
+    public function testVerifyQuestion()
+    {
+        $returnedValue = $this->user->verifyQuestion("kalle", "lasagne");
+        $this->assertEquals($returnedValue, true);
+
+        $returnedValue = $this->user->verifyPassword("kalle", "falskt");
+        $this->assertEquals($returnedValue, false);
+    }
 }

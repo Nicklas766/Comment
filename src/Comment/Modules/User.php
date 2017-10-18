@@ -25,7 +25,6 @@ class User extends ActiveRecordModelExtender
     public $authority = "user";
     public $question;
 
-
     /**
      * Check if user exists
      *
@@ -49,6 +48,21 @@ class User extends ActiveRecordModelExtender
     {
         $this->img = $this->gravatar($this->email);
     }
+
+    /**
+     * Returns gravatar link
+     *
+     * @param string $name
+     *
+     * @return string as gravatar link
+     */
+    public function getGravatar($name)
+    {
+        $this->find("name", $name);
+        return $this->gravatar($this->email);
+    }
+
+
 
 
     /**
@@ -91,5 +105,22 @@ class User extends ActiveRecordModelExtender
     {
         $this->find("name", $name);
         return ($this->question == $answer);
+    }
+
+
+    /**
+    * Check if a post belongs to user
+    *
+    *
+    * @return boolean
+    */
+    public function controlAuthority($loggedUser, $name)
+    {
+        $this->find("name", $loggedUser);
+        // IF AUTHORITY == admin, then continue
+        if ($this->authority != "admin") {
+            return ($this->name == $name);
+        }
+        return true;
     }
 }

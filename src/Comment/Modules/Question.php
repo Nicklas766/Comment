@@ -41,17 +41,14 @@ class Question extends ActiveRecordModelExtender
             $questions = $this->findAll();
         }
         if ($sql != null) {
-            $questions = $this->findAllWhere("$sql", $params);
+            $questions = $this->findAllWhere($sql, $params);
         }
 
         return array_map(function ($question) {
-
-            // Find users email
+            // User email
             $user = new User($this->db);
-            $user->find("name", $question->user);
-
             // Start setting attributes
-            $question->img = $this->gravatar($user->email);
+            $question->img = $user->getGravatar($question->user);
             $question->title = $this->getMD($question->title);
             $question->tags = explode(',', $question->tags);
 
@@ -74,7 +71,7 @@ class Question extends ActiveRecordModelExtender
 
         $question->question = $post->getPost("questionId = ? AND type = ?", [$question->id, "question"]);
         $question->answers = $post->getAllPosts("questionId = ? AND type = ?", [$question->id, "answer"]);
-        $question->answersCount = count($question->answers);
+        $question->answerCount = count($question->answers);
 
         // Start setting up own attributes
         $question->title = $this->getMD($question->title);
@@ -100,31 +97,6 @@ class Question extends ActiveRecordModelExtender
         // Merge multi array, count values, sort high to low
         $tagArr = array_count_values(call_user_func_array("array_merge", $tagsMultiArray));
         arsort($tagArr);
-
-        if (array_key_exists('', $tagArr)) {
-            unset($tagArr[""]);
-        }
         return $tagArr;
-    }
-
-
-
-
-    /**
-     * Check if a post belongs to user
-     *
-     *
-     * @return boolean
-     */
-    public function controlAuthority($name)
-    {
-        $user = new User($this->db);
-        $user->find("name", $name);
-
-        // IF AUTHORITY == admin, then continue
-        if ($user->authority != "admin") {
-            return ($user->name == $this->user);
-        }
-        return true;
     }
 }

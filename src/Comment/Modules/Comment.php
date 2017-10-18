@@ -41,8 +41,7 @@ class Comment extends ActiveRecordModelExtender
 
         return array_map(function ($comment) {
             $user = new User($this->db);
-            $user->find("name", $comment->user);
-            $comment->img = $this->gravatar($user->email);
+            $comment->img = $user->getGravatar($comment->user);
             $comment->markdown = $this->getMD($comment->text);
 
             return $comment;

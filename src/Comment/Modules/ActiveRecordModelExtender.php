@@ -3,8 +3,6 @@
 namespace Nicklas\Comment\Modules;
 
 use \Anax\Database\ActiveRecordModel;
-use \Nicklas\Comment;
-
 use \Anax\TextFilter\TextFilter;
 
 /**
@@ -18,10 +16,10 @@ class ActiveRecordModelExtender extends ActiveRecordModel
      * Constructor injects with database
      *
      */
-     public function __construct($db = null)
-     {
+    public function __construct($db = null)
+    {
          $this->db = $db;
-     }
+    }
     /**
      * Returns gravatar link
      *

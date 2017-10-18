@@ -48,7 +48,6 @@ class CommentTest extends \PHPUnit_Framework_TestCase
         // // First should be connected to post 2
         $comment = $this->comment->getComments("parentId = ?", [3]);
         $this->assertEquals($comment[0]->user, "sven");
-
     }
 
     /**
