@@ -9,6 +9,8 @@
 Comment Module for Anax
 ==================================
 
+[![Join the chat at https://gitter.im/Nicklas766/Comment](https://badges.gitter.im/Nicklas766/Comment.svg)](https://gitter.im/Nicklas766/Comment?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 About
 ------------------
