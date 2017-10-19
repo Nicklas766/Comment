@@ -23,13 +23,7 @@ class AdminController extends UserController
     public function getUsers()
     {
         $user = new User($this->di->get("db"));
-        $users = $user->findAll();
-
-        return array_map(function ($user) {
-            $user->setGravatar($user->email);
-
-            return $user;
-        }, $users);
+        return $user->getAllUsers();
     }
 
     /**
@@ -42,11 +36,11 @@ class AdminController extends UserController
         $this->checkIsLogin();
 
         $user = new User($this->di->get("db"));
-        $user = $user->find("name", $this->di->get("session")->get("user"));
+        $user = $user->getUser($this->di->get("session")->get("user"));
 
         if ($user->authority != "admin") {
             $views = [
-                ["admin/fail", [], "main"]
+                ["comment/admin/fail", [], "main"]
             ];
             $this->di->get("pageRenderComment")->renderPage([
                 "views" => $views,
@@ -68,8 +62,8 @@ class AdminController extends UserController
     public function getUsersIndex()
     {
         $views = [
-            ["admin/navbar", [], "main"],
-            ["admin/crud/view-all", ["users" => $this->getUsers()], "main"]
+            ["comment/admin/navbar", [], "main"],
+            ["comment/admin/crud/view-all", ["users" => $this->getUsers()], "main"]
         ];
 
         $this->di->get("pageRenderComment")->renderPage([
@@ -94,8 +88,8 @@ class AdminController extends UserController
         $form->check();
 
         $views = [
-            ["admin/navbar", [], "main"],
-            ["admin/crud/edit", ["form" => $form->getHTML()], "main"]
+            ["comment/admin/navbar", [], "main"],
+            ["comment/admin/crud/edit", ["form" => $form->getHTML()], "main"]
         ];
 
         $this->di->get("pageRenderComment")->renderPage([
@@ -119,8 +113,8 @@ class AdminController extends UserController
         $form->check();
 
         $views = [
-            ["admin/navbar", [], "main"],
-            ["admin/crud/edit", ["form" => $form->getHTML()], "main"]
+            ["comment/admin/navbar", [], "main"],
+            ["comment/admin/crud/edit", ["form" => $form->getHTML()], "main"]
         ];
 
         $this->di->get("pageRenderComment")->renderPage([

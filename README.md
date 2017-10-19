@@ -48,8 +48,8 @@ composer require nicklas/comment
 Copy everything that lies in the `config/di.php` and paste it in your own DI-container. Also
 make sure that you add any dependency that you might not added already.
 
-Also don't be surprised that we're adding a `renderpage` class, since this comment
-module uses it's own renderpage functions, therefore we need to add them in our DI.
+Also don't be surprised that we're adding a `renderpage` class, since this module
+uses it's own renderpage functions, therefore we need to add them in our DI.
 
 ### Database
 
@@ -60,8 +60,12 @@ You'll need a `config/database.php` file. In other words, you'll need a normal s
 
 ### Views
 
-In `/views` you'll find the views for the module. You can copy them and paste it to your
-own Anax installation or study them and make your own. (No style is included)
+In `/views` you'll find the views for the module. You can copy them and paste it in
+own Anax installation. Then you can style them for your own website.
+
+
+### Add more?
+You can use `use class()` if you want to make your own Pagerenders with the modules.
 
 License
 ------------------

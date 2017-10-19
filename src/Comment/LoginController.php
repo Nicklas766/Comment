@@ -46,7 +46,7 @@ class LoginController implements
     {
         if (!$this->di->get("session")->has("user")) {
             $views = [
-                ["user/fail/fail", [], "main"]
+                ["comment/user/fail/fail", [], "main"]
             ];
             $this->di->get("pageRenderComment")->renderPage([
                 "views" => $views,
@@ -73,7 +73,7 @@ class LoginController implements
         $form->check();
 
         $views = [
-            ["user/pre/login", ["form" => $form->getHTML()], "main"]
+            ["comment/user/pre/login", ["form" => $form->getHTML()], "main"]
         ];
 
         $this->di->get("pageRenderComment")->renderPage([
@@ -93,7 +93,7 @@ class LoginController implements
         $form->check();
 
         $views = [
-            ["user/pre/reset", ["form" => $form->getHTML()], "main"]
+            ["comment/user/pre/reset", ["form" => $form->getHTML()], "main"]
         ];
 
         $this->di->get("pageRenderComment")->renderPage([
@@ -119,7 +119,7 @@ class LoginController implements
         $form->check();
 
         $views = [
-            ["user/pre/create", ["form" => $form->getHTML()], "main"]
+            ["comment/user/pre/create", ["form" => $form->getHTML()], "main"]
         ];
 
         $this->di->get("pageRenderComment")->renderPage([

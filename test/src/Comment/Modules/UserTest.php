@@ -87,6 +87,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         // Should be 0 posts (type = answer) and 3 comments
         $this->assertEquals($user->name, "sven");
         $this->assertEquals($user->img, "https://www.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028&s=40");
+        $this->assertEquals(count($user->answeredQuestions), 2);
 
         // Nicklas766
         $user = $this->user->getUser("nicklas766");

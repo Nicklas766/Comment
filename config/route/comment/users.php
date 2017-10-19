@@ -5,16 +5,16 @@
 return [
     "routes" => [
         [
-            "info" => "Comments index page",
+            "info" => "View all users",
             "requestMethod" => null,
             "path" => "",
             "callable" => ["commentFrontController", "getAllUsersIndex"],
         ],
         [
-            "info" => "Comments index page",
-            "requestMethod" => "get|post",
-            "path" => "create",
-            "callable" => ["commentFrontController", "getPostCreateQuestion"],
+            "info" => "View specific user",
+            "requestMethod" => null,
+            "path" => "{dataset:alphanum}",
+            "callable" => ["commentFrontController", "getUserIndex"],
         ],
     ]
 ];

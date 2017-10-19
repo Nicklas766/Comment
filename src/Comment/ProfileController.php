@@ -22,9 +22,7 @@ class ProfileController extends LoginController
     public function getUserDetails($name)
     {
         $user = new User($this->di->get("db"));
-        $user->find("name", $name);
-        $user->setGravatar();
-        return $user;
+        return $user->getUser($name);
     }
 
     /**
@@ -41,13 +39,13 @@ class ProfileController extends LoginController
 
 
         $views = [
-            ["user/profile/profile", ["user" => $user], "main"]
+            ["comment/user/profile/profile", ["user" => $user], "main"]
         ];
 
         if ($user->authority == "admin") {
             $views = [
-                ["admin/navbar", [], "main"],
-                ["user/profile/profile", ["user" => $user], "main"]
+                ["comment/admin/navbar", [], "main"],
+                ["comment/user/profile/profile", ["user" => $user], "main"]
             ];
         }
 
@@ -75,7 +73,7 @@ class ProfileController extends LoginController
         $form->check();
 
         $views = [
-            ["user/profile/edit", ["form" => $form->getHTML(), "user" => $user], "main"]
+            ["comment/user/profile/edit", ["form" => $form->getHTML(), "user" => $user], "main"]
         ];
 
         $this->di->get("pageRenderComment")->renderPage([
@@ -102,7 +100,7 @@ class ProfileController extends LoginController
         $form->check();
 
         $views = [
-            ["user/profile/edit", ["form" => $form->getHTML(), "user" => $user], "main"]
+            ["comment/user/profile/edit", ["form" => $form->getHTML(), "user" => $user], "main"]
         ];
 
         $this->di->get("pageRenderComment")->renderPage([

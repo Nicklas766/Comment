@@ -74,6 +74,9 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function testTheseNeedsToBeFixed()
     {
+
+        self::$di->get("session")->set("user", "admin");
+        
         $this->adminController->getPostAdminEditUser(1);
 
         // usercontroller

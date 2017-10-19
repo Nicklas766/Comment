@@ -26,6 +26,26 @@ class User extends ActiveRecordModelExtender
     public $question;
 
 
+    public function setupUser($user)
+    {
+        $question = new Question($this->db);
+        $post     = new Post($this->db);
+        $comment  = new Comment($this->db);
+
+        $user->questions  = $question->getQuestions("user = ?", $user->name);
+        $user->posts      = $post->getAllPosts("user = ? AND type = ?", [$user->name, "answer"]);
+        $user->comments   = $comment->getComments("user = ?", $user->name);
+        $user->img        = $this->getGravatar($user->name);
+        $user->postAmount = count($user->questions) + count($user->posts) + count($user->comments);
+
+        // Get all the questions connected to answers
+        $user->answeredQuestions = array_map(function ($answer) use ($question) {
+            return $question->getQuestion($answer->questionId);
+        }, $user->posts);
+
+        return $user;
+    }
+
     /**
      * Returns post with markdown and gravatar
      * @param string $sql
@@ -42,18 +62,7 @@ class User extends ActiveRecordModelExtender
             $users = $this->findAllWhere($sql, $params);
         }
 
-        $question   = new Question($this->db);
-        $post       = new Post($this->db);
-        $comment    = new Comment($this->db);
-
-        return array_map(function ($user) use ($question, $post, $comment) {
-            $user->questions    = $question->getQuestions("user = ?", $user->name);
-            $user->posts        = $post->getAllPosts("user = ? AND type = ?", [$user->name, "answer"]);
-            $user->comments     = $comment->getComments("user = ?", $user->name);
-            $user->img          = $this->getGravatar($user->name);
-            
-            return $user;
-        }, $users);
+        return array_map(array($this, 'setupUser'), $users);
     }
 
     /**
@@ -64,17 +73,7 @@ class User extends ActiveRecordModelExtender
     public function getUser($name)
     {
         $user = $this->find("name", $name);
-
-        $question   = new Question($this->db);
-        $post       = new Post($this->db);
-        $comment    = new Comment($this->db);
-
-        // Get all the different posts user made.
-        $user->questions    = $question->getQuestions("user = ?", $user->name);
-        $user->posts        = $post->getAllPosts("user = ? AND type = ?", [$user->name, "answer"]);
-        $user->comments     = $comment->getComments("user = ?", $user->name);
-        $user->img          = $this->getGravatar($name);
-
+        $user = $this->setupUser($user);
         return $user;
     }
 

@@ -34,15 +34,11 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
     public function testGetUserDetails()
     {
 
-        $user = new User();
-        $user->setDb(self::$di->get("db"));
-        $user->name = "Markus";
-        $user->setPassword("password");
-        $user->save();
 
-        $returnedUser = $this->userController->getUserDetails("Markus");
+        $returnedUser = $this->userController->getUserDetails("sven");
+        $returnedUser2 = $this->userController->getUserDetails("kalle");
 
-        $this->assertNotEquals($returnedUser, $user);
+        $this->assertNotEquals($returnedUser, $returnedUser2);
 
         $returnedUser->delete();
     }

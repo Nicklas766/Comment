@@ -18,15 +18,36 @@ class UserController extends ProfileController
      */
     public function getAllUsersIndex()
     {
-        $user = new Users($this->di->get("db"));
-        $users = $user->getUsers();
+        $user = new User($this->di->get("db"));
+        $users = $user->getAllUsers();
+
         $views = [
-            ["user/pre/create", ["form" => $form->getHTML()], "main"]
+            ["comment/users/view-all", ["users" => $users], "main"]
         ];
 
         $this->di->get("pageRenderComment")->renderPage([
             "views" => $views,
-            "title" => "Create User"
+            "title" => "Coffee users"
+        ]);
+    }
+
+    /**
+     * Create page for all users overview
+     *
+     * @return void
+     */
+    public function getUserIndex($name)
+    {
+        $user = new User($this->di->get("db"));
+        $user = $user->getUser($name);
+
+        $views = [
+            ["comment/users/view-user", ["user" => $user], "main"]
+        ];
+
+        $this->di->get("pageRenderComment")->renderPage([
+            "views" => $views,
+            "title" => "User | $user->name"
         ]);
     }
 }
