@@ -11,7 +11,7 @@ use \Nicklas\Comment\Modules\User;
 /**
  * A controller class.
  */
-class AdminController extends ProfileController
+class AdminController extends UserController
 {
 
     /**

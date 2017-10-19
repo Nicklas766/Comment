@@ -12,6 +12,11 @@ return [
             "file" => __DIR__ . "/route/comment/user.php",
         ],
         [
+            // Routers for the user parts mounts on user/
+            "mount" => "users",
+            "file" => __DIR__ . "/route/comment/users.php",
+        ],
+        [
             // Routers for the user parts mounts on comment/
             "mount" => "comment",
             "file" => __DIR__ . "/route/comment/comment.php",

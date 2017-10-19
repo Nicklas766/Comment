@@ -50,10 +50,16 @@ class CreateQuestionForm extends FormModel
         );
     }
 
-
+    public function isValid($str)
+    {
+        return !preg_match('/[^A-Za-z0-9.#. \\-$]/', $str);
+    }
 
     public function getHashtags($string)
     {
+        if (!$this->isValid($string)) {
+            return null;
+        }
         preg_match_all("/(#\w+)/u", $string, $matches);
         if ($matches) {
             $hashtagsArray = array_count_values($matches[0]);
@@ -83,12 +89,16 @@ class CreateQuestionForm extends FormModel
 
         if (!$tags) {
             $this->form->addOutput("
-            <p>Inga taggar hittades, du behöver ange minst en.</p>
+            <p>Din fråga skickades inte:</p>
+            <p>Antingen så angav du inga taggar, eller så angav du en ogiltig.</p>
+            <p>Nordiska bokstäver är ej tillåtna i tags, använd istället a för ä t.ex.</p>
+            <p>Tips:</p>
             <p>Du taggar genom att göra en hashtag, #mintag.</p>
-            <p>#hej på dig #kaffe <--- kommer att bli #hej #kaffe</p>
+            <p>#hej pa dig #kaffe <--- kommer att bli #hej #kaffe</p>
             ");
             return false;
         }
+
 
         $user = $this->di->get('session')->get("user"); # get user name
 
@@ -100,8 +110,8 @@ class CreateQuestionForm extends FormModel
 
 
         $post     = new Post($this->di->get("db"));
+                $post->user       = $user;
         $post->questionId = $question->id;
-        $post->user       = $user;
         $post->text       = $text;
         $post->type       = "question";
         $post->save();

@@ -25,6 +25,60 @@ class User extends ActiveRecordModelExtender
     public $authority = "user";
     public $question;
 
+
+    /**
+     * Returns post with markdown and gravatar
+     * @param string $sql
+     * @param array $param
+     *
+     * @return array
+     */
+    public function getAllUsers($sql = null, $params = null)
+    {
+        if ($sql == null) {
+            $users = $this->findAll();
+        }
+        if ($sql != null) {
+            $users = $this->findAllWhere($sql, $params);
+        }
+
+        $question   = new Question($this->db);
+        $post       = new Post($this->db);
+        $comment    = new Comment($this->db);
+
+        return array_map(function ($user) use ($question, $post, $comment) {
+            $user->questions    = $question->getQuestions("user = ?", $user->name);
+            $user->posts        = $post->getAllPosts("user = ? AND type = ?", [$user->name, "answer"]);
+            $user->comments     = $comment->getComments("user = ?", $user->name);
+            $user->img          = $this->getGravatar($user->name);
+            
+            return $user;
+        }, $users);
+    }
+
+    /**
+     * return question/answer, three attributes are set, comments connected to them is an array.
+     *
+     * @return object
+    */
+    public function getUser($name)
+    {
+        $user = $this->find("name", $name);
+
+        $question   = new Question($this->db);
+        $post       = new Post($this->db);
+        $comment    = new Comment($this->db);
+
+        // Get all the different posts user made.
+        $user->questions    = $question->getQuestions("user = ?", $user->name);
+        $user->posts        = $post->getAllPosts("user = ? AND type = ?", [$user->name, "answer"]);
+        $user->comments     = $comment->getComments("user = ?", $user->name);
+        $user->img          = $this->getGravatar($name);
+
+        return $user;
+    }
+
+
     /**
      * Check if user exists
      *
@@ -61,9 +115,6 @@ class User extends ActiveRecordModelExtender
         $this->find("name", $name);
         return $this->gravatar($this->email);
     }
-
-
-
 
     /**
      * Set the pass.

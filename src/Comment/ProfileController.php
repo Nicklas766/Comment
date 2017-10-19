@@ -9,7 +9,7 @@ use \Nicklas\Comment\Modules\User;
 /**
  * A controller class.
  */
-class ProfileController extends UserController
+class ProfileController extends LoginController
 {
 
     /**

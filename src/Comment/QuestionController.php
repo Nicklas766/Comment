@@ -90,10 +90,18 @@ class QuestionController extends AdminController
      */
     public function getTaggedQuestions($tag)
     {
-        $comment = new Comment($this->di->get("db"));
+        $question = new Question($this->di->get("db"));
+
+        $questions = $question->getQuestions();
+
+
+
+        $filteredQuestions = array_filter($questions, function ($value) use ($tag) {
+            return in_array($tag, $value->tags);
+        });
 
         $views = [
-            ["comment/crud/view-all", ["questions" => $comment->getPosts("tags LIKE ?", [$tag])], "main"]
+            ["comment/question/view-all", ["questions" => $filteredQuestions], "main"]
         ];
 
         $this->di->get("pageRenderComment")->renderPage([

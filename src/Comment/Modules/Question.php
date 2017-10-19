@@ -43,8 +43,8 @@ class Question extends ActiveRecordModelExtender
         if ($sql != null) {
             $questions = $this->findAllWhere($sql, $params);
         }
-
-        return array_map(function ($question) {
+        // array_reverse so latest order question gets returned
+        return array_reverse(array_map(function ($question) {
             // User email
             $user = new User($this->db);
             // Start setting attributes
@@ -53,7 +53,7 @@ class Question extends ActiveRecordModelExtender
             $question->tags = explode(',', $question->tags);
 
             return $question;
-        }, $questions);
+        }, $questions));
     }
 
     /**

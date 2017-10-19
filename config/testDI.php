@@ -206,7 +206,7 @@ return [
 
                 $sql = 'INSERT INTO `ramverk1_users` (`name`, `email`, `pass`, `authority`, `question`) VALUES
                     ("admin", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin", "lasagne"),
-                    ("nicklas", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
+                    ("nicklas766", "nicklas766@live.se", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
                     ("anders", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
                     ("kalle", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
                     ("sven", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
@@ -232,11 +232,11 @@ return [
 
                 // --------------------------------------------- QUESTIONs 2
                 $sql = 'INSERT INTO `ramverk1_questions` (`user`, `title`, `tags`) VALUES
-                    ("nicklas", "Vilken tésort bör jag köpa?", "té,tésort,kaffe")';
+                    ("nicklas766", "Vilken tésort bör jag köpa?", "té,tésort,kaffe")';
                 $obj->execute($sql);
 
                 $sql = 'INSERT INTO `ramverk1_posts` (`questionId`, `user`, `type`, `text`) VALUES
-                    (2, "nicklas", "question", "Hej alla! Vilken tésort bör jag köpa? Gärna att den är rik med antioxidanter."),
+                    (2, "nicklas766", "question", "Hej alla! Vilken tésort bör jag köpa? Gärna att den är rik med antioxidanter."),
                     (2, "sven", "answer", "Jag gillar roobius, köp den!")';
                 $obj->execute($sql);
 

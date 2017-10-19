@@ -8,21 +8,23 @@
 
 Comment Module for Anax
 ==================================
-Why this?
-------------------
-Well, maybe you are a front-end developer and quickly want to have a, loginsystem,
-commentsystem, questionsystem for anax quick. Well here you get default views with minimal
-style, so you can edit them.
-
-About
-------------------
 
 This is a comment module for the Anax framework. This README.md assumes you have a
 decent knowledge of the Anax-framework.
 
-There's no style included in this, therefore it will not look that great. If you want
-to add style you can study the `/views` and add style or change the classes.
+Why use this module?
+------------------
+Well, maybe you are a front-end developer who's building an anax app and can't
+really bother with the backend stuff. Well this is prebuilt for you, so you
+can style the default views and use data from modules to create new ideas and pages
+with the data.
 
+What does it contain?
+------------------
+1. Login System (users,admins)
+2. Questions and Answers System.
+3. Comment System
+4. Prebuilt HTMLForms
 
 Setup
 ------------------

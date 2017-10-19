@@ -96,8 +96,8 @@ class CreateUserForm extends FormModel
             return false;
         }
 
-        if (strpos($name, '%') !== false) {
-            $this->form->addOutput("% is not allowed");
+        if (preg_match("/[^-a-z0-9_]/i", $name)) {
+            $this->form->addOutput("Ogiltigt användarnamn, vänligen försök igen.");
             return false;
         }
 
