@@ -84,6 +84,9 @@ CREATE TABLE `ramverk1_votes`
 ) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 
+SELECT * FROM `ramverk1_posts`;
+SELECT * FROM `ramverk1_questions` WHERE id = 1;
+SELECT * FROM `ramverk1_posts` WHERE id = 2;
 
 
 
@@ -138,5 +141,15 @@ INSERT INTO `ramverk1_posts` (`questionId`, `user`, `type`, `text`) VALUES
 INSERT INTO `ramverk1_comments` (`parentId`, `user`, `text`) VALUES
     (4, "kalle", "Jag älskar té, men detta är fel hemsida.."),
     (5, "kalle", "uppmuntra honom inte..");
+
+    INSERT INTO `ramverk1_votes` (`user`, `parentId`, `parentType`, `upVote`, `downVote`) VALUES
+                    ("kalle", 2, "post", 1, null),
+                    ("sven", 2, "post", null, 1),
+                    ("anders", 2, "post", null, 1),
+                    ("jessica", 2, "post", null, 1),
+                    ("kalle", 1, "comment", null, 1),
+                    ("sven", 1, "comment", 1, null),
+                    ("anders", 1, "comment", 1, null),
+                    ("jessica", 1, "comment", 1, null);
 
 -- ------------------------------------------------------------------------

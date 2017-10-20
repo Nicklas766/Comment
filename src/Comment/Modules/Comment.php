@@ -42,6 +42,10 @@ class Comment extends ActiveRecordModelExtender
             $comment->img = $user->getGravatar($comment->user);
             $comment->markdown = $this->getMD($comment->text);
 
+            // Get votes for Post
+            $vote = new Vote($this->db);
+            $comment->vote = $vote->getVote("parentId = ? AND parentType = ?", [$comment->id, "comment"]);
+
             return $comment;
         }, $comments);
     }

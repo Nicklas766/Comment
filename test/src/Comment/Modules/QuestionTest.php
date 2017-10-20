@@ -43,6 +43,7 @@ class QuestionTest extends \PHPUnit_Framework_TestCase
         $question = $this->question->getQuestion(1);
         $this->assertEquals($question->user, "kalle");
         $this->assertEquals($question->answerCount, 2);
+        $this->assertEquals($question->question->vote->score, -2);
     }
 
 

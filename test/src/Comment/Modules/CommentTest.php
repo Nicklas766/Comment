@@ -41,66 +41,15 @@ class CommentTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetComments()
     {
+        // Should have 2 likes since on question 2 the first comment was made in db
         // First comment should be connected to post 2
         $comment = $this->comment->getComments("parentId = ?", [2]);
+        $this->assertEquals($comment[0]->vote->score, 2);
         $this->assertEquals($comment[0]->user, "kalle");
 
         // // First should be connected to post 2
         $comment = $this->comment->getComments("parentId = ?", [3]);
         $this->assertEquals($comment[0]->user, "sven");
+        $this->assertEquals($comment[0]->vote->score, 0);
     }
-
-    /**
-     * Test case for GetPosts function
-     * Controls that the return is correct regarding to the function.
-     */
-    // public function testGetPosts()
-    // {
-    //     // Should have length of 2, also have type "comment"
-    //     $comments = $this->comment->getPosts("parentId = ? AND type = ?", [1, "comment"]);
-    //     $this->assertEquals(count($comments), 2);
-    //     $this->assertEquals($comments[1]->type, "comment");
-    //
-    //     // Should have all questions made by user "kalle"
-    //     $questions = $this->comment->getPosts("user = ? AND type = ?", ["kalle", "question"]);
-    //     $this->assertEquals($questions[0]->user, "kalle");
-    //     $this->assertEquals(count($questions), 1);
-    //
-    //     // Should have all questions made by all users
-    //     $questions = $this->comment->getPosts("type = ?", ["question"]);
-    //     $this->assertEquals(count($questions), 2);
-    // }
-
-    /**
-     * Test case for GetPopularTags function
-     * Controls that the return is correct regarding to the function.
-     */
-    // public function testGetPopularTags()
-    // {
-    //     // Should have all questions made by all users
-    //     $tags = $this->comment->getPopularTags();
-    //     var_dump($tags);
-    //     $this->assertEquals(array_keys($tags)[0], "#kaffe");
-    // }
-
-    /**
-     * Test case for controlAuthority function
-     * Controls that the return is correct regarding to the function.
-     */
-    // public function testControlAuthority()
-    // {
-    //     $comment = $this->comment->getPost(1);
-    //
-    //     // Returns true since user is admin
-    //     $returnedValue = $comment->controlAuthority("admin");
-    //     $this->assertEquals($returnedValue, true);
-    //
-    //     // Returns true since user made question
-    //     $returnedValue = $comment->controlAuthority("kalle");
-    //     $this->assertEquals($returnedValue, true);
-    //
-    //     // Returns false since user didn't create question
-    //     $returnedValue = $comment->controlAuthority("sven");
-    //     $this->assertEquals($returnedValue, false);
-    // }
 }

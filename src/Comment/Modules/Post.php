@@ -53,6 +53,11 @@ class Post extends ActiveRecordModelExtender
             $comment = new Comment($this->db);
             $post->comments = $comment->getComments("parentId = ?", [$post->id]);
 
+
+            // Get votes for Post
+            $vote = new Vote($this->db);
+            $post->vote = $vote->getVote("parentId = ? AND parentType = ?", [$post->id, "post"]);
+
             // Get text
             $post->markdown = $this->getMD($post->text);
 
@@ -73,11 +78,17 @@ class Post extends ActiveRecordModelExtender
         $user = new User($this->db);
         $post->img = $user->getGravatar($post->user);
 
-
+        // Get comments for Post
         $comment = new Comment($this->db);
+        $post->comments = $comment->getComments("parentId = ?", [$post->id]);
+
+        // Get votes for Post
+        $vote = new Vote($this->db);
+        $post->vote = $vote->getVote("parentId = ? AND parentType = ?", [$post->id, "post"]);
+        
         // Start setting attributes
         $post->markdown = $this->getMD($post->text);
-        $post->comments = $comment->getComments("parentId = ?", [$post->id]);
+
 
         return $post;
     }
