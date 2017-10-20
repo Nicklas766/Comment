@@ -18,8 +18,8 @@ return [
         ],
         [
             // Routers for the user parts mounts on comment/
-            "mount" => "comment",
-            "file" => __DIR__ . "/route/comment/comment.php",
+            "mount" => "question",
+            "file" => __DIR__ . "/route/comment/question.php",
         ],
         [
             // Routers for the user parts mounts on admin/

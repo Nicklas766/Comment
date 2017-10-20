@@ -63,27 +63,6 @@ class QuestionController extends AdminController
     }
 
     /**
-     * View specific question and create answer form
-     *
-     * @return void
-     */
-    public function postComment($id)
-    {
-        $text = isset($_POST["text"]) ? $_POST["text"] : "nothingfound";
-
-        if ($text == "nothingfound") {
-            return false;
-        }
-        $user = $this->di->get("session")->get("user");
-        $comment = new Comment($this->di->get("db"));
-        $comment->text = $text;
-        $comment->parentId = $id;
-        $comment->user = $user;
-        $comment->save();
-        return true;
-    }
-
-    /**
      * Show all items.
      *
      * @return void

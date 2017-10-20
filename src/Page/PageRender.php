@@ -68,8 +68,8 @@ class PageRender implements PageRenderInterface, InjectionAwareInterface
         $data["javascripts"] = ["js/index.js"];
 
         // Add layout, render it, add to response and send.
-        $view->add("default1/layout", $data, "layout");
-        $body = $view->renderBuffered("layout");
+        $view->add("wrappedApp", $data, "wrappedApp");
+        $body = $view->renderBuffered("wrappedApp");
         $this->di->get("response")->setBody($body)
                                   ->send($status);
         exit;

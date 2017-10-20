@@ -202,6 +202,21 @@ return [
                 $obj->execute($sql);
 
 
+                // POSTS TABLE
+                $sql = 'CREATE TABLE `ramverk1_votes`
+                (
+                  `id` INTEGER PRIMARY KEY NOT NULL,
+                  `user` VARCHAR(100) NOT NULL,
+                  `parentId` int,
+                  `parentType` text, -- comment/question/answer
+                  `upVote` INT,
+                  `downVote` INT,
+
+                  FOREIGN KEY (`user`) REFERENCES `ramverk1_users` (`name`)
+                )';
+                $obj->execute($sql);
+
+
 
 
                 $sql = 'INSERT INTO `ramverk1_users` (`name`, `email`, `pass`, `authority`, `question`) VALUES
@@ -243,6 +258,19 @@ return [
                 $sql = 'INSERT INTO `ramverk1_comments` (`parentId`, `user`, `text`) VALUES
                     (4, "kalle", "Jag älskar té, men detta är fel hemsida.."),
                     (5, "kalle", "uppmuntra honom inte..")';
+                $obj->execute($sql);
+
+
+                // --------------------------------------------- LIKES
+                $sql = 'INSERT INTO `ramverk1_votes` (`user`, `parentId`, `parentType`, `upVote`, `downVote`) VALUES
+                    ("kalle", 1, "post", 1, null),
+                    ("sven", 1, "post", null, 1),
+                    ("anders", 1, "post", null, 1),
+                    ("jessica", 1, "post", null, 1),
+                    ("kalle", 1, "comment", null, 1),
+                    ("sven", 1, "comment", 1, null),
+                    ("anders", 1, "comment", 1, null),
+                    ("jessica", 1, "comment", 1, null)';
                 $obj->execute($sql);
 
 

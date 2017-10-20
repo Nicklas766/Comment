@@ -70,6 +70,19 @@ CREATE TABLE `ramverk1_comments`
 ) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 
+CREATE TABLE `ramverk1_votes`
+(
+  `id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  `user` VARCHAR(100) NOT NULL,
+  `parentId` int,
+  `parentType` text, -- comment/question/answer
+  `upVote` INT,
+  `downVote` INT,
+
+  FOREIGN KEY (`user`) REFERENCES `ramverk1_users` (`name`)
+) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
+
+
 
 
 

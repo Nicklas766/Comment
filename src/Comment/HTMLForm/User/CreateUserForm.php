@@ -30,13 +30,13 @@ class CreateUserForm extends FormModel
                 "name" => [
                     "type"        => "text",
                     "validation" => ["not_empty"],
-                    "placeholder" => "name",
+                    "placeholder" => "Användarnamn",
                     "label" => false,
                 ],
 
                 "email" => [
                     "type"        => "text",
-                    "placeholder" => "email",
+                    "placeholder" => "Mejladress",
                     "label" => false,
                 ],
                 "question" => [
@@ -49,7 +49,7 @@ class CreateUserForm extends FormModel
                 "password" => [
                     "type"        => "password",
                     "validation" => ["not_empty"],
-                    "placeholder" => "password",
+                    "placeholder" => "Lösenord",
                     "label" => false
                 ],
 
@@ -58,14 +58,14 @@ class CreateUserForm extends FormModel
                     "validation" => [
                         "match" => "password"
                     ],
-                    "placeholder" => "password",
+                    "placeholder" => "Lösenord igen",
                     "label" => false
                 ],
 
                 "submit" => [
                     "label" => false,
                     "type" => "submit",
-                    "value" => "Create user",
+                    "value" => "Skapa konto",
                     "callback" => [$this, "callbackSubmit"]
                 ],
             ]

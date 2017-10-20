@@ -37,5 +37,12 @@ return [
             "path" => "comment/{id:digit}",
             "callable" => ["commentFrontController", "postComment"],
         ],
+        // vote
+        [
+            "info" => "On this route POST to comment, idea is ajax",
+            "requestMethod" => "post",
+            "path" => "vote",
+            "callable" => ["commentFrontController", "postVote"],
+        ],
     ]
 ];

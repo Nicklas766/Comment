@@ -64,6 +64,11 @@ In `/views` you'll find the views for the module. You can copy them and paste it
 own Anax installation. Then you can style them for your own website.
 
 
+### PageRender
+I recommend that you copy the `src/page` into your own and that to the `commentFrontController`
+in your DI, so you have better control of this part.
+
+
 ### Add more?
 You can use `use class()` if you want to make your own Pagerenders with the modules.
 
