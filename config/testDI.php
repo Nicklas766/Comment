@@ -176,6 +176,7 @@ return [
                 (
                   `id` INTEGER PRIMARY KEY NOT NULL,
                   `questionId` int,
+                  `accepted` VARCHAR(100) DEFAULT "no",
                   `user` VARCHAR(100) NOT NULL,
                   `type` text, -- question or answer
                   `text` text,

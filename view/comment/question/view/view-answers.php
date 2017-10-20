@@ -5,67 +5,130 @@
 
 <div style="width:50%; margin:auto;">
     <?php foreach ($answers as $answer) : ?>
-        <div style="background:#FFF8DC;">
+        <div class="answer" style="background:#FFF8DC;">
             <h1>
                 <img src="<?=  $answer->img ?>">
                  <a href="<?= $this->url("users/$answer->user") ?>"> <?= $answer->user ?></a>
              </h1>
             <?= $answer->markdown ?>
-        </div>
+
+
+
+            <!-- If accepted show style, else show acceptme button and hidden value for jquery .each -->
+            <?php if($answer->accepted == "yes") : ?>
+                <p>Im accepted</p>
+            <?php else : ?>
+                <p class="acceptme">acceptme</p>
+                <input type="hidden" value="<?= $answer->id?>">
+            <?php endif; ?>
+
+
+
+
+
 
         <!-- Comments for answers  -->
         <?php foreach ($answer->comments as $comment) : ?>
-            <div style="width:10%; display: inline-block;">
+            <div style="width:10%; background:white;display: inline-block;">
                 <img style="height:20px;" src="<?= $comment->img ?>">
                 <a href="<?= $this->url("users/$comment->user") ?>"> <?= $comment->user ?></a>
             </div>
             <div style="width:80%; display: inline-block;">
                 <?= $comment->markdown?>
             </div>
+
         <?php endforeach; ?>
 
+        <p class="kommentera">Kommentera</p>
 
-
-
-        <a id="clickme<?=$answer->id?>">Kommentera</a>
-
-        <!-- COMMENT FORM for new comments -->
-        <form id="<?=$answer->id?>"  method="POST">
-            <input id="text<?=$answer->id?>" type="textarea" value =""/>
-            <input type="submit" value="Skicka">
+        <form method="POST">
+            <textarea></textarea>
+            <input type="hidden" value="<?=$answer->id?>">
+            <p>Skicka</p>
         </form>
-        <script>
-        $(document).ready(function() {
-            $("#<?=$answer->id?>").submit(function(e) {
-                var url = "<?= $this->url("question/comment/$answer->id") ?>"; // the script where you handle the form input.
-                $.ajax({
-                       type: "POST",
-                       url: url,
-                       data: {text: $('#text<?=$answer->id?>').val()}, // serializes the form's elements.
-                       success: function(data)
-                       {
-                           alert("Tack för din kommentar!"); // show response from the php script.
-                       }
-                     });
-                e.preventDefault(); // avoid to execute the actual submit of the form.
-                $.ajax({
-                    url: "<?= $this->url("question/$answer->questionId") ?>",
-                    cache: false,
-                    success: function(content) {
-                        $("body").html(content);
-                    }
-                });
+</div>
+<?php endforeach; ?>
+
+</div>
+
+
+<!-- POST ACCEPTED-->
+
+
+<script type='text/javascript'>
+
+    // Get needed urls
+    var currentUrl = "<?= $this->url("question/$answer->questionId")?>";
+    var acceptUrl = "<?= $this->url("question/accept")?>";
+    var commentUrl = "<?= $this->url("question/comment")?>";
+
+
+    $(document).ready(function() {
+
+    // ACCEPT ANSWER AJAX
+    $( ".answer" ).each(function() {
+        $this = $(this);
+        $(this).children(".acceptme").on("click", function(){
+        id = $(this).next().val();
+        $.ajax({
+                type: "POST",
+                url: acceptUrl + "/" + id,
+                success: function(data){
+                    $.ajax({
+                            type: "GET",
+                            url: currentUrl,
+                            success: function(content) {
+                            $("body").html(content);
+                        }
+                    });
+                }
             });
         });
-        $( "#<?=$answer->id?>" ).hide();
-        // Toggle show
-        $( "#clickme<?=$answer->id?>" ).click(function() {
-          $( "#<?=$answer->id?>" ).toggle( "fast", function() {
-            // Animation complete.
-          });
+    });
+
+
+    // POST COMMENT AJAX
+    $(".answer").each(function() {
+        var id = $(this).children("form").children(":nth-child(2)").val();
+
+        // Hide forms, and add click to show forms
+        $(this).children("form").hide();
+        $(this).children(".kommentera").click(function() {
+            $(this).next().toggle("slow", function() {
+              // Animation complete.
+            });
         });
-        </script>
 
 
 
-    <?php endforeach; ?>
+        $(this).children("form").children(":nth-child(3)").on("click", function(){
+
+            var text = $(this).prev().prev().val();
+            var url = commentUrl + "/" + id; // the script where you handle the form input.
+            console.log(id);
+
+            console.log(text);
+
+            if (text == "") {
+                return true;
+            }
+            $.ajax({
+                   type: "POST",
+                   url: url,
+                   data: {text: text}, // serializes the form's elements.
+                   success: function(data)
+                   {
+                       $.ajax({
+                               type: "GET",
+                               url: currentUrl,
+                               success: function(content) {
+                               $("body").html(content);
+                           }
+                       });
+                   }
+                 });
+        });
+    });
+
+});
+</script>

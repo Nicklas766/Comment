@@ -21,6 +21,7 @@ class Post extends ActiveRecordModelExtender
     public $id;
     public $user;
     public $questionId; # Connection to new Question()
+    public $accepted; # default "no"
 
     public $type; # question/answer
     public $text;

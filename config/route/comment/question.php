@@ -37,12 +37,18 @@ return [
             "path" => "comment/{id:digit}",
             "callable" => ["commentFrontController", "postComment"],
         ],
-        // vote
+        // vote and accept answer
         [
-            "info" => "On this route POST to comment, idea is ajax",
+            "info" => "Make a vote for the post or comment",
             "requestMethod" => "post",
             "path" => "vote",
             "callable" => ["commentFrontController", "postVote"],
+        ],
+        [
+            "info" => "Accept post as valid answer",
+            "requestMethod" => "get|post",
+            "path" => "accept/{id:digit}",
+            "callable" => ["commentFrontController", "postAcceptedAnswer"],
         ],
     ]
 ];

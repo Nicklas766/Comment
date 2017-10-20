@@ -12,6 +12,7 @@ SET NAMES utf8;
 -- Setup tables
 --
 -- ------------------------------------------------------------------------
+DROP TABLE IF EXISTS `ramverk1_votes`;
 DROP TABLE IF EXISTS `ramverk1_comments`;
 DROP TABLE IF EXISTS `ramverk1_posts`;
 DROP TABLE IF EXISTS `ramverk1_questions`;
@@ -34,7 +35,6 @@ CREATE TABLE `ramverk1_questions`
 (
   `id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   `user` VARCHAR(100) NOT NULL,
-  `acceptedId` int,
   `title` text,
   `tags` text,
   `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -47,6 +47,7 @@ CREATE TABLE `ramverk1_posts`
 (
   `id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   `questionId` int,
+  `accepted` VARCHAR(100) DEFAULT 'no',
   `user` VARCHAR(100) NOT NULL,
   `type` text, -- question or answer
   `text` text,
