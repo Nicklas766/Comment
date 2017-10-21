@@ -110,8 +110,12 @@ INSERT INTO `ramverk1_users` (`name`, `email`, `pass`, `authority`, `question`) 
     ("user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
     ("mos", "mos@dbwebb.se", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne");
 
+    -- mos@dbwebb.se
+    -- nhdandersson@gmail.com
     -- niso16@student.bth.se
     -- marcusgu@hotmail.com
+    -- peder.tornberg@gmail.com
+    -- magnusandersson076@gmail.com
 
 
 

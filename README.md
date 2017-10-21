@@ -19,12 +19,15 @@ really bother with the backend stuff. Well this is prebuilt for you, so you
 can style the default views and use data from modules to create new ideas and pages
 with the data.
 
+We've added some jquery in the views, so you can get some Ajax in the questions views,
+but it's optional to use.
+
 What does it contain?
 ------------------
 1. Login System (users,admins)
 2. Questions and Answers System.
 3. Comment System
-4. Prebuilt HTMLForms
+5. Prebuilt HTMLForms
 
 Setup
 ------------------

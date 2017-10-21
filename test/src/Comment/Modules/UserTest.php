@@ -96,11 +96,28 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(count($user->comments), 0);
         $this->assertEquals(count($user->posts), 0);
         $this->assertEquals(count($user->question), 1);
+
+
+        // Nicklas766 har ställt en fråga
+        $user = $this->user->getUser("nicklas766");
+        $this->assertEquals($user->reputation, 2);
+
+        // Sven har svarat två gågnger, kommenterat 1 gång.
+        $user = $this->user->getUser("sven");
+        $this->assertEquals($user->reputation, 7);
+        $this->assertEquals(count($user->answeredQuestions), 2);
+        $this->assertEquals($user->answeredQuestions[0]->title, "<p>Fråga om kaffe koppar</p>
+");
+        $this->assertEquals($user->answeredQuestions[1]->title, "<p>Vilken tésort bör jag köpa?</p>
+");
+
+        // Kalle har frågat 1 gång, kommenterat 3 gånger
+        // Kalle fick 1 like och 3 dislikes för sin fråga
+        // Kalle fick 3 likes och 1 dislike för sin kommentar
+        // Alltså bör det vara (2 + 3) + (2 + (-2 * 3) + (3 - 1))
+        $user = $this->user->getUser("kalle");
+        $this->assertEquals($user->reputation, 3);
     }
-
-
-
-
 
     /**
      * Test case for UserExists function

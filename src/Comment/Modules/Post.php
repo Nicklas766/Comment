@@ -31,6 +31,27 @@ class Post extends ActiveRecordModelExtender
     public $di;
 
 
+    /**
+     * Set ups the question
+     * @param object $question
+     * @param array $param
+     *
+     * @return object
+     */
+    public function setupPost($post)
+    {
+
+        $user = new User($this->db);
+        $comment = new Comment($this->db);
+        $vote = new Vote($this->db);
+
+        $post->img      = $user->getGravatar($post->user);
+        $post->comments = $comment->getComments("parentId = ?", [$post->id]);
+        $post->vote     = $vote->getVote("parentId = ? AND parentType = ?", [$post->id, "post"]);
+        $post->markdown = $this->getMD($post->text);
+
+        return $post;
+    }
 
     /**
      * Returns post with markdown and gravatar
@@ -43,26 +64,8 @@ class Post extends ActiveRecordModelExtender
     {
         $posts = $this->findAllWhere("$sql", $params);
 
-        return array_map(function ($post) {
-
-            // Get e-mail for Post
-            $user = new User($this->db);
-            $post->img = $user->getGravatar($post->user);
-
-            // Get comments for Post
-            $comment = new Comment($this->db);
-            $post->comments = $comment->getComments("parentId = ?", [$post->id]);
-
-
-            // Get votes for Post
-            $vote = new Vote($this->db);
-            $post->vote = $vote->getVote("parentId = ? AND parentType = ?", [$post->id, "post"]);
-
-            // Get text
-            $post->markdown = $this->getMD($post->text);
-
-            return $post;
-        }, $posts);
+        // array_reverse so latest order question gets returned
+        return array_map(array($this, 'setupPost'), $posts);
     }
 
     /**
@@ -73,23 +76,6 @@ class Post extends ActiveRecordModelExtender
     public function getPost($sql, $params)
     {
         $post = $this->findWhere("$sql", $params);
-
-        // Get e-mail for question
-        $user = new User($this->db);
-        $post->img = $user->getGravatar($post->user);
-
-        // Get comments for Post
-        $comment = new Comment($this->db);
-        $post->comments = $comment->getComments("parentId = ?", [$post->id]);
-
-        // Get votes for Post
-        $vote = new Vote($this->db);
-        $post->vote = $vote->getVote("parentId = ? AND parentType = ?", [$post->id, "post"]);
-        
-        // Start setting attributes
-        $post->markdown = $this->getMD($post->text);
-
-
-        return $post;
+        return $post->setupPost($post);
     }
 }

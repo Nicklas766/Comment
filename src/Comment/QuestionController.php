@@ -49,14 +49,14 @@ class QuestionController extends AdminController
 
 
         if ($sort == "points") {
-            usort($question->answers, function($a, $b) {
-                return $a->vote->score < $b->vote->score;
+            usort($question->answers, function ($current, $next) {
+                return $current->vote->score < $next->vote->score;
             });
         }
 
         if ($sort == "vote") {
-            usort($question->answers, function($a, $b) {
-                return count($b->vote->likes) > count($a->vote->likes);
+            usort($question->answers, function ($current, $next) {
+                return count($current->vote->likes) > count($next->vote->likes);
             });
         }
 
@@ -80,7 +80,8 @@ class QuestionController extends AdminController
 
         $views = [
             ["comment/question/view/view-question", ["question" => $question], "question"],
-            ["comment/question/view/view-answers", ["answers" => $question->answers, "questionId" => $question->question->questionId], "question"],
+            ["comment/question/view/view-answers",
+            ["answers" => $question->answers, "questionId" => $question->question->questionId], "question"],
             ["comment/question/view/post-answer", ["form" => $form->getHTML()], "form"],
             ["comment/question/view/wrappedField", ["question" => $question], "main"]
             ];
