@@ -27,7 +27,29 @@ class Question extends ActiveRecordModelExtender
     public $created;
     public $status; # default is active
 
+    /**
+     * Set ups the question
+     * @param object $question
+     * @param array $param
+     *
+     * @return object
+     */
+    public function setupQuestion($question)
+    {
+        $user = new User($this->db);
+        $post = new Post($this->db);
 
+        $question->img = $user->getGravatar($question->user);
+        $question->title = $this->getMD($question->title);
+        $question->tags = explode(',', $question->tags);
+
+        $question->question = $post->getPost("questionId = ? AND type = ?", [$question->id, "question"]);
+        $question->answers = $post->getAllPosts("questionId = ? AND type = ?", [$question->id, "answer"]);
+        $question->answerCount = count($question->answers);
+
+
+        return $question;
+    }
     /**
      * Returns post with markdown and gravatar
      * @param string $sql
@@ -44,16 +66,7 @@ class Question extends ActiveRecordModelExtender
             $questions = $this->findAllWhere($sql, $params);
         }
         // array_reverse so latest order question gets returned
-        return array_reverse(array_map(function ($question) {
-            // User email
-            $user = new User($this->db);
-            // Start setting attributes
-            $question->img = $user->getGravatar($question->user);
-            $question->title = $this->getMD($question->title);
-            $question->tags = explode(',', $question->tags);
-
-            return $question;
-        }, $questions));
+        return array_map(array($this, 'setupQuestion'), $questions);
     }
 
     /**
@@ -65,20 +78,7 @@ class Question extends ActiveRecordModelExtender
     public function getQuestion($id)
     {
         $question = $this->find("id", $id);
-
-        // Add attributes from Post class
-        $post = new Post($this->db);
-
-        $question->question = $post->getPost("questionId = ? AND type = ?", [$question->id, "question"]);
-        $question->answers = $post->getAllPosts("questionId = ? AND type = ?", [$question->id, "answer"]);
-        $question->answerCount = count($question->answers);
-
-        // Start setting up own attributes
-        $question->title = $this->getMD($question->title);
-        $question->tags = explode(',', $question->tags);
-
-
-        return $question;
+        return $this->setupQuestion($question);
     }
 
     /**

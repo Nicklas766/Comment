@@ -19,9 +19,16 @@ return [
 
         // View question, also post answer
         [
-            "info" => "Comments index page",
+            "info" => "Question index page",
             "requestMethod" => "get|post",
             "path" => "{id:digit}",
+            "callable" => ["commentFrontController", "getPostQuestionAnswer"],
+        ],
+        // Sort by alphanum
+        [
+            "info" => "Sorts question by alphanum",
+            "requestMethod" => "get|post",
+            "path" => "{id:digit}/{dataset:alphanum}",
             "callable" => ["commentFrontController", "getPostQuestionAnswer"],
         ],
         // View questions based on tag

@@ -39,18 +39,48 @@ class QuestionController extends AdminController
      *
      * @return void
      */
-    public function getPostQuestionAnswer($id)
+    public function getPostQuestionAnswer($id, $sort = null)
     {
         $question = new Question($this->di->get("db"));
+        $question = $question->getQuestion($id);
+
+        // Get query for up or down
+        $order = isset($_GET["order"]) ? $_GET["order"] : "up";
+
+
+        if ($sort == "points") {
+            usort($question->answers, function($a, $b) {
+                return $a->vote->score < $b->vote->score;
+            });
+        }
+
+        if ($sort == "vote") {
+            usort($question->answers, function($a, $b) {
+                return count($b->vote->likes) > count($a->vote->likes);
+            });
+        }
+
+
+        if ($order == "down") {
+            asort($question->answers);
+        }
+
+        if ($order == "up") {
+            arsort($question->answers);
+        }
+
+
+
+
 
         $form       = new CreateAnswerForm($this->di, $id);
         $form->check();
 
-        $question = $question->getQuestion($id);
+
 
         $views = [
             ["comment/question/view/view-question", ["question" => $question], "question"],
-            ["comment/question/view/view-answers", ["answers" => $question->answers], "question"],
+            ["comment/question/view/view-answers", ["answers" => $question->answers, "questionId" => $question->question->questionId], "question"],
             ["comment/question/view/post-answer", ["form" => $form->getHTML()], "form"],
             ["comment/question/view/wrappedField", ["question" => $question], "main"]
             ];

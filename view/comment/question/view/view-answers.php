@@ -52,9 +52,15 @@
                 </div>
 
                 <!-- Actual comment with score  -->
-                <div style="width:80%; display: inline-block;">
+                <div class="comment" style="width:80%; display: inline-block;">
                     <?= $comment->markdown?>
                     <p>score:<?= $comment->vote->score ?></p>
+
+                    <!-- like or dislike -->
+                    <p class="like">Gilla</p>
+                    <p class="dislike">Ogilla</p>
+                    <input type="hidden" name="parentType" value="comment">
+                    <input type="hidden" name="parentId" value="<?= $comment->id ?>">
                 </div>
             <?php endforeach; ?>
 
@@ -73,109 +79,21 @@
 </div>
 
 
-<!-- POST ACCEPTED-->
-
+<!-- JAVASCRIPT FOR ALL AJAX CALLS -->
 
 <script type='text/javascript'>
 
     // Get needed urls
-    var currentUrl  = "<?= $this->url("question/$answer->questionId")?>";
+    var currentUrl  = "<?= $this->currentUrl() . "?" . $_SERVER['QUERY_STRING']?>";
     var acceptUrl   = "<?= $this->url("question/accept")?>";
     var commentUrl  = "<?= $this->url("question/comment")?>";
     var voteUrl     = "<?= $this->url("question/vote")?>";
 
 
-    $(document).ready(function() {
+$(document).ready(function() {
 
-    // ACCEPT ANSWER AJAX
+    // Add click event for each answer
     $( ".answer" ).each(function() {
-        $this = $(this);
-        $(this).children(".acceptme").on("click", function(){
-        id = $(this).next().val();
-        $.ajax({
-                type: "POST",
-                url: acceptUrl + "/" + id,
-                success: function(data){
-                    $.ajax({
-                            type: "GET",
-                            url: currentUrl,
-                            success: function(content) {
-                            $("body").html(content);
-                        }
-                    });
-                }
-            });
-        });
-    });
-
-
-    // VOTE OR DISLIKE AJAX
-    $( ".answer" ).each(function() {
-
-        // <p class="like">Gilla</p>
-        // <p class="dislike">Ogilla</p>
-        // <input type="hidden" name="parentType" value="post">
-        // <input type="hidden" name="parentId" value="<?= $answer->id ?>">
-
-        $(this).children(".like").on("click", function() {
-            var parentType = $(this).next().next().val();
-            var parentId = $(this).next().next().next().val();
-            console.log("iwasclicked");
-            $.ajax({
-                    type: "POST",
-                    url: voteUrl,
-                    data: {
-                        parentType: parentType,
-                        parentId: parentId,
-                        upVote: 1
-                    },
-                    success: function(data){
-                        console.log(data);
-                        $.ajax({
-                                type: "GET",
-                                url: currentUrl,
-                                success: function(content) {
-                                $("body").html(content);
-                            }
-                        });
-                    }
-                });
-            });
-
-        $(this).children(".dislike").on("click", function() {
-            var parentType = $(this).next().val();
-            var parentId = $(this).next().next().val();
-            console.log("iwasclicked");
-            $.ajax({
-                    type: "POST",
-                    url: voteUrl,
-                    data: {
-                        parentType: parentType,
-                        parentId: parentId,
-                        downVote: 1
-                    },
-                    success: function(data){
-                        console.log(data);
-                        $.ajax({
-                                type: "GET",
-                                url: currentUrl,
-                                success: function(content) {
-                                $("body").html(content);
-                            }
-                        });
-                    }
-                });
-            });
-
-
-
-
-    });
-
-
-    // POST COMMENT AJAX
-    $(".answer").each(function() {
-        var id = $(this).children("form").children(":nth-child(2)").val();
 
         // Hide forms, and add click to show forms
         $(this).children("form").hide();
@@ -185,34 +103,103 @@
             });
         });
 
-        $(this).children("form").children(":nth-child(3)").on("click", function(){
+        // Post comment
+        var id = $(this).children("form").children(":nth-child(2)").val();
 
+        $(this).children("form").children(":nth-child(3)").on("click", function(){
             var text = $(this).prev().prev().val();
             var url = commentUrl + "/" + id; // the script where you handle the form input.
-            console.log(id);
-
-            console.log(text);
-
             if (text == "") {
                 return true;
             }
-            $.ajax({
-                   type: "POST",
-                   url: url,
-                   data: {text: text}, // serializes the form's elements.
-                   success: function(data)
-                   {
-                       $.ajax({
-                               type: "GET",
-                               url: currentUrl,
-                               success: function(content) {
-                               $("body").html(content);
-                           }
-                       });
-                   }
-                 });
+            ajaxPost(url, {text: text});
+            console.log(id);
+            console.log(text);
+        });
+
+        // Accept answer
+        $(this).children(".acceptme").on("click", function(){
+            id = $(this).next().val();
+            url = acceptUrl + "/" + id;
+            ajaxPost(url, {});
+        });
+
+        // Up vote Answer
+        $(this).children(".like").on("click", function() {
+            var parentType = $(this).next().next().val();
+            var parentId = $(this).next().next().next().val();
+            console.log("iwasclicked");
+                ajaxPost(voteUrl, {parentType: parentType, parentId: parentId, upVote: 1});
+            });
+
+        // Down vote Answer
+        $(this).children(".dislike").on("click", function() {
+            var parentType = $(this).next().val();
+            var parentId = $(this).next().next().val();
+            console.log("iwasclicked");
+            ajaxPost(voteUrl, {parentType: parentType, parentId: parentId, downVote: 1});
+        });
+});
+
+    // Add up vote events on each comment
+    $( ".comment" ).each(function() {
+        // Up vote Answer
+        $(this).children(".like").on("click", function() {
+            var parentType = $(this).next().next().val();
+            var parentId = $(this).next().next().next().val();
+                ajaxPost(voteUrl, {parentType: parentType, parentId: parentId, upVote: 1});
+            });
+
+        // Down vote Answer
+        $(this).children(".dislike").on("click", function() {
+            var parentType = $(this).next().val();
+            var parentId = $(this).next().next().val();
+            console.log("iwasclicked");
+            ajaxPost(voteUrl, {parentType: parentType, parentId: parentId, downVote: 1});
         });
     });
+
+
+
+// --------------------------- Question
+    // Up vote question
+    $(".question").children(".like").on("click", function() {
+        var parentType = $(this).next().next().val();
+        var parentId = $(this).next().next().next().val();
+        console.log("iwasclicked");
+            ajaxPost(voteUrl, {parentType: parentType, parentId: parentId, upVote: 1});
+        });
+
+    // Down vote question
+    $(".question").children(".dislike").on("click", function() {
+        var parentType = $(this).next().val();
+        var parentId = $(this).next().next().val();
+        console.log("iwasclicked");
+        ajaxPost(voteUrl, {parentType: parentType, parentId: parentId, downVote: 1});
+    });
+
+    // Post comment
+    var id = $(".question").children("form").children(":nth-child(2)").val();
+
+    $(".question").children("form").children(":nth-child(3)").on("click", function(){
+        var text = $(this).prev().prev().val();
+        var url = commentUrl + "/" + id; // the script where you handle the form input.
+        if (text == "") {
+            return true;
+        }
+        ajaxPost(url, {text: text});
+        console.log(id);
+        console.log(text);
+    });
+
+    // Hide forms, and add click to show forms
+    $(".question").children("form").hide();
+    $(".question").children(".kommentera").click(function() {
+        $(this).next().toggle("slow", function() {
+          // Animation complete.
+        });
+});
+
 
 });
 </script>

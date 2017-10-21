@@ -104,10 +104,17 @@ INSERT INTO `ramverk1_users` (`name`, `email`, `pass`, `authority`, `question`) 
     ("admin", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin", "lasagne"),
     ("nicklas", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
     ("anders", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("kalle", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("sven", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
+    ("kalle", "nhdandersson@gmail.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
+    ("marcus", "marcusgu@hotmail.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
     ("jessica", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne");
+    ("user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
+    ("mos", "mos@dbwebb.se", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne");
+
+    -- niso16@student.bth.se
+    -- marcusgu@hotmail.com
+
+
+
 
 
 -- "Funktionell programmering! Har ni sett de senaste uppdateringarna i javascript?"
@@ -121,13 +128,13 @@ INSERT INTO `ramverk1_questions` (`user`, `title`, `tags`) VALUES
 
 INSERT INTO `ramverk1_posts` (`questionId`, `user`, `type`, `text`) VALUES
     (1, "kalle", "question", "Hej bör kaffe drickas ur tjocka koppar eller smala? Vad gillar ni mest? Personligen så föredrar jag smala."),
-    (1, "sven", "answer", "Bra fråga, troligtvis något många glömmer att tänka på. Jag har bara tjocka kaffekoppar hemma."),
+    (1, "marcus", "answer", "Bra fråga, troligtvis något många glömmer att tänka på. Jag har bara tjocka kaffekoppar hemma."),
     (1, "jessica", "answer", "Personligen så föredrar jag att variera, varför använda endast en?");
 
 
 INSERT INTO `ramverk1_comments` (`parentId`, `user`, `text`) VALUES
     (2, "kalle", "Ok tack för ditt svar Sven!"),
-    (3, "sven", "Hmm, du har en poäng jag ska köpa några smala koppar idag.");
+    (3, "marcus", "Hmm, du har en poäng jag ska köpa några smala koppar idag.");
 
 -- QUESTIONS 2
 -- ----------------------------------------------------------------------
@@ -136,20 +143,29 @@ INSERT INTO `ramverk1_questions` (`user`, `title`, `tags`) VALUES
 
 INSERT INTO `ramverk1_posts` (`questionId`, `user`, `type`, `text`) VALUES
     (2, "nicklas", "question", "Hej alla! Vilken tésort bör jag köpa? Gärna att den är rik med antioxidanter."),
-    (2, "sven", "answer", "Jag gillar roobius, köp den!");
+    (2, "marcus", "answer", "Jag gillar roobius, köp den!");
 
 INSERT INTO `ramverk1_comments` (`parentId`, `user`, `text`) VALUES
     (4, "kalle", "Jag älskar té, men detta är fel hemsida.."),
     (5, "kalle", "uppmuntra honom inte..");
 
-    INSERT INTO `ramverk1_votes` (`user`, `parentId`, `parentType`, `upVote`, `downVote`) VALUES
-                    ("kalle", 2, "post", 1, null),
-                    ("sven", 2, "post", null, 1),
-                    ("anders", 2, "post", null, 1),
-                    ("jessica", 2, "post", null, 1),
-                    ("kalle", 1, "comment", null, 1),
-                    ("sven", 1, "comment", 1, null),
-                    ("anders", 1, "comment", 1, null),
-                    ("jessica", 1, "comment", 1, null);
 
+-- QUESTIONS 3
+-- ----------------------------------------------------------------------
+INSERT INTO `ramverk1_questions` (`user`, `title`, `tags`) VALUES
+    ("mos", "Här ligger en fråga", "mugg,kaffe");
+INSERT INTO `ramverk1_posts` (`questionId`, `user`, `type`, `text`) VALUES
+    (3, "mos", "question", "Här är frågan");
+
+-- COMMENTS
 -- ------------------------------------------------------------------------
+
+INSERT INTO `ramverk1_votes` (`user`, `parentId`, `parentType`, `upVote`, `downVote`) VALUES
+                ("kalle", 2, "post", 1, null),
+                ("marcus", 2, "post", null, 1),
+                ("anders", 2, "post", null, 1),
+                ("jessica", 2, "post", null, 1),
+                ("kalle", 1, "comment", null, 1),
+                ("marcus", 1, "comment", 1, null),
+                ("anders", 1, "comment", 1, null),
+                ("jessica", 1, "comment", 1, null);
