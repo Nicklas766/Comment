@@ -33,17 +33,16 @@ class Post extends ActiveRecordModelExtender
 
     /**
      * Set ups the question
-     * @param object $question
-     * @param array $param
+     * @param object $post
      *
      * @return object
      */
     public function setupPost($post)
     {
 
-        $user = new User($this->db);
+        $user    = new User($this->db);
         $comment = new Comment($this->db);
-        $vote = new Vote($this->db);
+        $vote    = new Vote($this->db);
 
         $post->img      = $user->getGravatar($post->user);
         $post->comments = $comment->getComments("parentId = ?", [$post->id]);
@@ -58,7 +57,7 @@ class Post extends ActiveRecordModelExtender
      * @param string $sql
      * @param array $param
      *
-     * @return array
+     * @return objects[]
      */
     public function getAllPosts($sql, $params)
     {
@@ -70,6 +69,8 @@ class Post extends ActiveRecordModelExtender
 
     /**
      * return question/answer, three attributes are set, comments connected to them is an array.
+     * @param string $sql
+     * @param array $param
      *
      * @return object
     */

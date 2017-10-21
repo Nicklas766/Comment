@@ -61,7 +61,6 @@ class User extends ActiveRecordModelExtender
     /**
      * Sets up user
      * @param object $user
-     * @param array $param
      *
      * @return object
      */
@@ -117,6 +116,7 @@ class User extends ActiveRecordModelExtender
 
     /**
      * return question/answer, three attributes are set, comments connected to them is an array.
+     * @param string $name
      *
      * @return object
     */

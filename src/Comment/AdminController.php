@@ -17,7 +17,6 @@ class AdminController extends UserController
     /**
      * Get all users
      *
-     *
      * @return array
      */
     public function getUsers()
@@ -53,10 +52,6 @@ class AdminController extends UserController
     /**
      * Description.
      *
-     * @param datatype $variable Description
-     *
-     * @throws Exception
-     *
      * @return void
      */
     public function getUsersIndex()
@@ -76,9 +71,7 @@ class AdminController extends UserController
     /**
      * Description.
      *
-     * @param datatype $variable Description
-     *
-     * @throws Exception
+     * @param int $id
      *
      * @return void
      */
@@ -100,10 +93,6 @@ class AdminController extends UserController
 
     /**
      * Description.
-     *
-     * @param datatype $variable Description
-     *
-     * @throws Exception
      *
      * @return void
      */

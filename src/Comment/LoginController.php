@@ -61,8 +61,6 @@ class LoginController implements
     /**
      * Description.
      *
-     * @param datatype $variable Description
-     *
      * @throws Exception
      *
      * @return void
@@ -106,8 +104,6 @@ class LoginController implements
 
     /**
      * Description.
-     *
-     * @param datatype $variable Description
      *
      * @throws Exception
      *

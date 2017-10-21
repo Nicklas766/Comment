@@ -30,7 +30,6 @@ class Question extends ActiveRecordModelExtender
     /**
      * Set ups the question
      * @param object $question
-     * @param array $param
      *
      * @return object
      */
@@ -59,6 +58,8 @@ class Question extends ActiveRecordModelExtender
      */
     public function getQuestions($sql = null, $params = null)
     {
+        $questions = [];
+        
         if ($sql == null) {
             $questions = $this->findAll();
         }

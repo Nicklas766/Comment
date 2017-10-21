@@ -58,9 +58,6 @@ class ProfileController extends LoginController
     /**
      * Description.
      *
-     * @param datatype $variable Description
-     *
-     * @throws Exception
      *
      * @return void
      */
@@ -85,9 +82,6 @@ class ProfileController extends LoginController
     /**
      * Description.
      *
-     * @param datatype $variable Description
-     *
-     * @throws Exception
      *
      * @return void
      */
