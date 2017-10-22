@@ -101,12 +101,12 @@ SELECT * FROM `ramverk1_posts` WHERE id = 2;
 -- ----------------------------------------------------------------------
 
 INSERT INTO `ramverk1_users` (`name`, `email`, `pass`, `authority`, `question`) VALUES
-    ("admin", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin", "lasagne"),
+    ("admin", "peder.tornberg@gmail.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin", "lasagne"),
     ("nicklas", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
     ("anders", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
     ("kalle", "nhdandersson@gmail.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
     ("marcus", "marcusgu@hotmail.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("jessica", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
+    ("peder", "peder.tornberg@gmail.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
     ("user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
     ("mos", "mos@dbwebb.se", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne");
 
@@ -133,7 +133,7 @@ INSERT INTO `ramverk1_questions` (`user`, `title`, `tags`) VALUES
 INSERT INTO `ramverk1_posts` (`questionId`, `user`, `type`, `text`) VALUES
     (1, "kalle", "question", "Hej bör kaffe drickas ur tjocka koppar eller smala? Vad gillar ni mest? Personligen så föredrar jag smala."),
     (1, "marcus", "answer", "Bra fråga, troligtvis något många glömmer att tänka på. Jag har bara tjocka kaffekoppar hemma."),
-    (1, "jessica", "answer", "Personligen så föredrar jag att variera, varför använda endast en?");
+    (1, "peder", "answer", "Personligen så föredrar jag att variera, varför använda endast en?");
 
 
 INSERT INTO `ramverk1_comments` (`parentId`, `user`, `text`) VALUES
@@ -168,8 +168,8 @@ INSERT INTO `ramverk1_votes` (`user`, `parentId`, `parentType`, `upVote`, `downV
                 ("kalle", 2, "post", 1, null),
                 ("marcus", 2, "post", null, 1),
                 ("anders", 2, "post", null, 1),
-                ("jessica", 2, "post", null, 1),
+                ("peder", 2, "post", null, 1),
                 ("kalle", 1, "comment", null, 1),
                 ("marcus", 1, "comment", 1, null),
                 ("anders", 1, "comment", 1, null),
-                ("jessica", 1, "comment", 1, null);
+                ("peder", 1, "comment", 1, null);

@@ -4,6 +4,9 @@ namespace Nicklas\Comment;
 
 // MODULES
 use \Nicklas\Comment\Modules\User;
+use \Nicklas\Comment\Modules\Post;
+use \Nicklas\Comment\HTMLForm\Comment\EditPostForm;
+use \Nicklas\Comment\HTMLForm\Comment\EditCommentForm;
 
 /**
  * A controller class.
@@ -48,6 +51,45 @@ class UserController extends ProfileController
         $this->di->get("pageRenderComment")->renderPage([
             "views" => $views,
             "title" => "User | $user->name"
+        ]);
+    }
+
+    /**
+     * Create page for all users overview
+     *
+     * @return void
+     */
+    public function getPostEditPost($id)
+    {
+        $form = new EditPostForm($this->di, $id);
+        $form->check();
+
+        $views = [
+            ["comment/default-form", ["form" => $form->getHTML()], "main"]
+        ];
+
+        $this->di->get("pageRenderComment")->renderPage([
+            "views" => $views,
+            "title" => "Edit post | $id"
+        ]);
+    }
+    /**
+     * Create page for all users overview
+     *
+     * @return void
+     */
+    public function getPostEditComment($id)
+    {
+        $form = new EditCommentForm($this->di, $id);
+        $form->check();
+
+        $views = [
+            ["comment/default-form", ["form" => $form->getHTML()], "main"]
+        ];
+
+        $this->di->get("pageRenderComment")->renderPage([
+            "views" => $views,
+            "title" => "Edit comment | $id"
         ]);
     }
 }

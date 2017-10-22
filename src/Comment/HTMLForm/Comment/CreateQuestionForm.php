@@ -87,6 +87,11 @@ class CreateQuestionForm extends FormModel
             return false;
         }
 
+        if ($text == "") {
+            $this->form->addOutput("Du skrev aldrig något. Skriv gärna något.");
+            return false;
+        }
+
         if (!$tags) {
             $this->form->addOutput("
             <p>Din fråga skickades inte:</p>
@@ -95,6 +100,16 @@ class CreateQuestionForm extends FormModel
             <p>Tips:</p>
             <p>Du taggar genom att göra en hashtag, #mintag.</p>
             <p>#hej pa dig #kaffe <--- kommer att bli #hej #kaffe</p>
+
+            <input type='submit' id='accept' value=Ok>
+            <script>
+            $( document ).ready(function() {
+                $('#accept').click(function () {
+                    $('output').remove();
+                });
+
+            });
+            </script>
             ");
             return false;
         }

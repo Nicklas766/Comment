@@ -12,12 +12,12 @@ return [
             "file" => __DIR__ . "/route/comment/user.php",
         ],
         [
-            // Routers for the user parts mounts on user/
+            // Routers for the user parts mounts on users/
             "mount" => "users",
             "file" => __DIR__ . "/route/comment/users.php",
         ],
         [
-            // Routers for the user parts mounts on comment/
+            // Routers for the user parts mounts on question/
             "mount" => "question",
             "file" => __DIR__ . "/route/comment/question.php",
         ],
@@ -25,6 +25,11 @@ return [
             // Routers for the user parts mounts on admin/
             "mount" => "admin",
             "file" => __DIR__ . "/route/comment/admin.php",
+        ],
+        [
+            // Routers for the user parts mounts on edit/
+            "mount" => "edit",
+            "file" => __DIR__ . "/route/comment/edit.php",
         ],
     ],
 ];

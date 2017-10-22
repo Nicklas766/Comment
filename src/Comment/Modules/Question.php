@@ -59,7 +59,7 @@ class Question extends ActiveRecordModelExtender
     public function getQuestions($sql = null, $params = null)
     {
         $questions = [];
-        
+
         if ($sql == null) {
             $questions = $this->findAll();
         }
@@ -67,7 +67,7 @@ class Question extends ActiveRecordModelExtender
             $questions = $this->findAllWhere($sql, $params);
         }
         // array_reverse so latest order question gets returned
-        return array_map(array($this, 'setupQuestion'), $questions);
+        return array_reverse(array_map(array($this, 'setupQuestion'), $questions));
     }
 
     /**
