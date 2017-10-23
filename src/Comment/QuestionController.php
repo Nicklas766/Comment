@@ -70,6 +70,14 @@ class QuestionController extends AdminController
             });
         }
 
+        // Accepted top
+        if ($sort == "accepted") {
+            usort($question->answers, function ($current, $next) {
+                return $current->accepted == "yes" ? 1 : -1;
+            });
+        }
+
+
         // Highest votes
         if ($sort == "vote") {
             usort($question->answers, function ($current, $next) {
