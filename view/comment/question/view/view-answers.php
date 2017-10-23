@@ -16,6 +16,7 @@
 
             <!-- Score stats -->
             <h1>score:<?= $answer->vote->score ?></h1>
+            <h1>rep<?= $answer->userObj->reputation ?></h1>
             <?php foreach ($answer->vote->likes as $like) : ?>
                 <?= $like->user?>
 

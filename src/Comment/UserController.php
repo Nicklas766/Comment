@@ -42,6 +42,12 @@ class UserController extends ProfileController
     public function getUserIndex($name)
     {
         $user = new User($this->di->get("db"));
+
+        // No exists, return false
+        if ($user->find("name", $name) == null) {
+            return false;
+        }
+
         $user = $user->getUser($name);
 
         $views = [

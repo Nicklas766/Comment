@@ -42,41 +42,48 @@ class QuestionController extends AdminController
     public function getPostQuestionAnswer($id, $sort = null)
     {
         $question = new Question($this->di->get("db"));
+        if ($question->find("id", $id) == null) {
+            return false;
+        }
         $question = $question->getQuestion($id);
+
+
+        // This is a bad practice and should be in the module, (fix this after kmom10 future)
+        // getting actual user Objects for posts for reputation show in view.
+        $question->question->userObj = $user->getUser($question->user);
+        $question->userObj           = $user->getUser($question->user);
+
+        $question->answers = array_map(function ($answer) {
+            $user                = new User($this->di->get("db"));
+            $answer->userObj     = $user->getUser($answer->user);
+            $answer->vote->score = $answer->vote->score == null ? 0 : $answer->vote->score;
+            return $answer;
+        }, $question->answers);
 
         // Get query for up or down
         $order = isset($_GET["order"]) ? $_GET["order"] : "up";
 
-
+        // Highest points
         if ($sort == "points") {
             usort($question->answers, function ($current, $next) {
-                return $current->vote->score < $next->vote->score;
+                return $current->vote->score > $next->vote->score;
             });
         }
 
+        // Highest votes
         if ($sort == "vote") {
             usort($question->answers, function ($current, $next) {
                 return count($current->vote->likes) > count($next->vote->likes);
             });
         }
 
-
-        if ($order == "down") {
-            asort($question->answers);
-        }
-
+        // If up array_reverse, "down" is default from module
         if ($order == "up") {
-            arsort($question->answers);
+            $question->answers = array_reverse($question->answers);
         }
-
-
-
-
 
         $form       = new CreateAnswerForm($this->di, $id);
         $form->check();
-
-
 
         $views = [
             ["comment/question/view/view-question", ["question" => $question], "question"],
@@ -87,7 +94,7 @@ class QuestionController extends AdminController
             ];
         $this->di->get("pageRenderComment")->renderPage([
             "views" => $views,
-            "title" => "Create your question"
+            "title" => "Fråga $question->id"
         ]);
 
         return false;

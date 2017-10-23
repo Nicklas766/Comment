@@ -12,6 +12,7 @@
 
 
     <p>score:<?= $question->question->vote->score ?></p>
+    <h1>Rep:<?= $question->question->userObj->reputation ?></h1>
 
     <!-- like or dislike -->
     <p class="like">Gilla</p>

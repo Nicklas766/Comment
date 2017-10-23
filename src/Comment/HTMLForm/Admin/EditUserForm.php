@@ -48,30 +48,13 @@ class EditUserForm extends FormModel
                 "submit" => [
                     "type" => "submit",
                     "value" => "Update",
+                    "onclick"=>"return confirm('Fick du verkligen allt rätt?');",
                     "callback" => [$this, "callbackSubmit"]
-                ],
-                "reset" => [
-                    "type"      => "reset",
-                ],
-                "delete" => [
-                    "type" => "submit",
-                    "value" => "Delete",
-                    "onclick"=>"return confirm('Vill du verkligen radera användaren?');",
-                    "callback" => [$this, "callBackDelete"]
                 ],
             ]
         );
     }
 
-
-    /**
-     * @return void
-     */
-    public function callbackDelete()
-    {
-        $this->user->delete();
-        $this->di->get("response")->redirect("admin/user");
-    }
 
     /**
      * Callback for submit-button which should return true if it could
