@@ -11,7 +11,7 @@ class User extends ActiveRecordModelExtender
         /**
      * @var string $tableName name of the database table.
      */
-    protected $tableName = "ramverk1_users";
+    protected $tableName = "coffee_users";
 
     /**
      * Columns in the table.

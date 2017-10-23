@@ -11,7 +11,7 @@ class Vote extends ActiveRecordModelExtender
         /**
      * @var string $tableName name of the database table.
      */
-    protected $tableName = "ramverk1_votes";
+    protected $tableName = "coffee_votes";
 
     /**
      * Columns in the table.

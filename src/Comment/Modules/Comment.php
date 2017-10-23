@@ -11,7 +11,7 @@ class Comment extends ActiveRecordModelExtender
         /**
      * @var string $tableName name of the database table.
      */
-    protected $tableName = "ramverk1_comments";
+    protected $tableName = "coffee_comments";
 
     /**
      * Columns in the table.

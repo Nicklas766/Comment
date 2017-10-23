@@ -11,7 +11,7 @@ class Question extends ActiveRecordModelExtender
         /**
      * @var string $tableName name of the database table.
      */
-    protected $tableName = "ramverk1_questions";
+    protected $tableName = "coffee_questions";
 
     /**
      * Columns in the table.

@@ -8,6 +8,7 @@ use \Nicklas\Comment\HTMLForm\Comment\EditCommentForm;
 
 use \Nicklas\Comment\Modules\Question;
 use \Nicklas\Comment\Modules\Comment;
+use \Nicklas\Comment\Modules\User;
 
 /**
  * Extends the UserController, for comments
@@ -42,6 +43,8 @@ class QuestionController extends AdminController
     public function getPostQuestionAnswer($id, $sort = null)
     {
         $question = new Question($this->di->get("db"));
+        $user     = new User($this->di->get("db"));
+
         if ($question->find("id", $id) == null) {
             return false;
         }
