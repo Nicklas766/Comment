@@ -75,10 +75,13 @@ class User extends ActiveRecordModelExtender
         $user->img        = $this->getGravatar($user->name);
 
         // Get all posts/votes user made
-        $user->questions  = $question->getQuestions("user = ?", $user->name);
-        $user->comments   = $comment->getComments("user = ?", $user->name);
-        $user->posts      = $post->getAllPosts("user = ? AND type = ?", [$user->name, "answer"]);
-        $user->votes      = $vote->getVote("user = ?", [$user->name]);
+        $sqlAccept = "user = ? AND type = ? AND accepted = ?";
+        $user->acceptedAnswers = count($post->getAllPosts($sqlAccept, [$user->name, "answer", "yes"]));
+        $user->questions       = $question->getQuestions("user = ?", $user->name);
+        $user->comments        = $comment->getComments("user = ?", $user->name);
+        $user->posts           = $post->getAllPosts("user = ? AND type = ?", [$user->name, "answer"]);
+        $user->votes           = $vote->getVote("user = ?", [$user->name]);
+
 
         // Amount of posts
         $user->postAmount = count($user->questions) + count($user->posts) + count($user->comments);

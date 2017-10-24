@@ -144,7 +144,7 @@ return [
 
                 // SETUP ALL TABLES
                 // USER
-                $sql = 'CREATE TABLE `ramverk1_users`
+                $sql = 'CREATE TABLE `coffee_users`
                 (
                   `id` INTEGER PRIMARY KEY NOT NULL,
                   `name` VARCHAR(100) NOT NULL UNIQUE,
@@ -157,7 +157,7 @@ return [
                 $obj->execute($sql);
 
                 // QUESTIONs TABLE
-                $sql = 'CREATE TABLE `ramverk1_questions`
+                $sql = 'CREATE TABLE `coffee_questions`
                 (
                   `id` INTEGER PRIMARY KEY NOT NULL,
                   `user` VARCHAR(100) NOT NULL,
@@ -167,12 +167,12 @@ return [
                   `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                   `status` VARCHAR(20) DEFAULT active,
 
-                  FOREIGN KEY (`user`) REFERENCES `ramverk1_users` (`name`)
+                  FOREIGN KEY (`user`) REFERENCES `coffee_users` (`name`)
                 )';
                 $obj->execute($sql);
 
                 // POSTS TABLE
-                $sql = 'CREATE TABLE `ramverk1_posts`
+                $sql = 'CREATE TABLE `coffee_posts`
                 (
                   `id` INTEGER PRIMARY KEY NOT NULL,
                   `questionId` int,
@@ -182,14 +182,14 @@ return [
                   `text` text,
                   `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-                  FOREIGN KEY (`user`) REFERENCES `ramverk1_users` (`name`),
-                  FOREIGN KEY (`questionId`) REFERENCES `ramverk1_questions` (`id`)
+                  FOREIGN KEY (`user`) REFERENCES `coffee_users` (`name`),
+                  FOREIGN KEY (`questionId`) REFERENCES `coffee_questions` (`id`)
                 )';
                 $obj->execute($sql);
 
 
                 // POSTS TABLE
-                $sql = 'CREATE TABLE `ramverk1_comments`
+                $sql = 'CREATE TABLE `coffee_comments`
                 (
                   `id` INTEGER PRIMARY KEY NOT NULL,
                   `user` VARCHAR(100) NOT NULL,
@@ -197,14 +197,14 @@ return [
                   `text` text,
                   `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-                  FOREIGN KEY (`user`) REFERENCES `ramverk1_users` (`name`),
-                  FOREIGN KEY (`parentId`) REFERENCES `ramverk1_posts` (`id`)
+                  FOREIGN KEY (`user`) REFERENCES `coffee_users` (`name`),
+                  FOREIGN KEY (`parentId`) REFERENCES `coffee_posts` (`id`)
                 )';
                 $obj->execute($sql);
 
 
                 // POSTS TABLE
-                $sql = 'CREATE TABLE `ramverk1_votes`
+                $sql = 'CREATE TABLE `coffee_votes`
                 (
                   `id` INTEGER PRIMARY KEY NOT NULL,
                   `user` VARCHAR(100) NOT NULL,
@@ -213,14 +213,14 @@ return [
                   `upVote` INT,
                   `downVote` INT,
 
-                  FOREIGN KEY (`user`) REFERENCES `ramverk1_users` (`name`)
+                  FOREIGN KEY (`user`) REFERENCES `coffee_users` (`name`)
                 )';
                 $obj->execute($sql);
 
 
 
 
-                $sql = 'INSERT INTO `ramverk1_users` (`name`, `email`, `pass`, `authority`, `question`) VALUES
+                $sql = 'INSERT INTO `coffee_users` (`name`, `email`, `pass`, `authority`, `question`) VALUES
                     ("admin", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin", "lasagne"),
                     ("nicklas766", "nicklas766@live.se", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
                     ("anders", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
@@ -231,39 +231,39 @@ return [
                 $obj->execute($sql);
 
                 // --------------------------------------------- QUESTIONs 1
-                $sql = 'INSERT INTO `ramverk1_questions` (`user`, `title`, `tags`) VALUES
+                $sql = 'INSERT INTO `coffee_questions` (`user`, `title`, `tags`) VALUES
                     ("kalle", "Fråga om kaffe koppar", "mugg,kaffe")';
                 $obj->execute($sql);
 
-                $sql = 'INSERT INTO `ramverk1_posts` (`questionId`, `user`, `type`, `text`) VALUES
+                $sql = 'INSERT INTO `coffee_posts` (`questionId`, `user`, `type`, `text`) VALUES
                     (1, "kalle", "question", "Hej bör kaffe drickas ur tjocka koppar eller smala? Vad gillar ni mest? Personligen så föredrar jag smala."),
                     (1, "sven", "answer", "Bra fråga, troligtvis något många glömmer att tänka på. Jag har bara tjocka kaffekoppar hemma."),
                     (1, "jessica", "answer", "Personligen så föredrar jag att variera, varför använda endast en?")';
                 $obj->execute($sql);
 
-                $sql = 'INSERT INTO `ramverk1_comments` (`parentId`, `user`, `text`) VALUES
+                $sql = 'INSERT INTO `coffee_comments` (`parentId`, `user`, `text`) VALUES
                     (2, "kalle", "Ok tack för ditt svar Sven!"),
                     (3, "sven", "Hmm, du har en poäng jag ska köpa några smala koppar idag.")';
                 $obj->execute($sql);
 
                 // --------------------------------------------- QUESTIONs 2
-                $sql = 'INSERT INTO `ramverk1_questions` (`user`, `title`, `tags`) VALUES
+                $sql = 'INSERT INTO `coffee_questions` (`user`, `title`, `tags`) VALUES
                     ("nicklas766", "Vilken tésort bör jag köpa?", "té,tésort,kaffe")';
                 $obj->execute($sql);
 
-                $sql = 'INSERT INTO `ramverk1_posts` (`questionId`, `user`, `type`, `text`) VALUES
+                $sql = 'INSERT INTO `coffee_posts` (`questionId`, `user`, `type`, `text`) VALUES
                     (2, "nicklas766", "question", "Hej alla! Vilken tésort bör jag köpa? Gärna att den är rik med antioxidanter."),
                     (2, "sven", "answer", "Jag gillar roobius, köp den!")';
                 $obj->execute($sql);
 
-                $sql = 'INSERT INTO `ramverk1_comments` (`parentId`, `user`, `text`) VALUES
+                $sql = 'INSERT INTO `coffee_comments` (`parentId`, `user`, `text`) VALUES
                     (4, "kalle", "Jag älskar té, men detta är fel hemsida.."),
                     (5, "kalle", "uppmuntra honom inte..")';
                 $obj->execute($sql);
 
 
                 // --------------------------------------------- LIKES
-                $sql = 'INSERT INTO `ramverk1_votes` (`user`, `parentId`, `parentType`, `upVote`, `downVote`) VALUES
+                $sql = 'INSERT INTO `coffee_votes` (`user`, `parentId`, `parentType`, `upVote`, `downVote`) VALUES
                     ("kalle", 1, "post", 1, null),
                     ("sven", 1, "post", null, 1),
                     ("anders", 1, "post", null, 1),

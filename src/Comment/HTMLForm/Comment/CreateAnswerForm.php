@@ -71,6 +71,7 @@ class CreateAnswerForm extends FormModel
         $post->user       = $user;
         $post->text       = $text;
         $post->type       = "answer";
+        $post->accepted   = "no";
         $post->save();
 
         $this->form->addOutput("Du skapade ett svar!");

@@ -26,7 +26,8 @@ class QuestionController extends AdminController
         $question = new Question($this->di->get("db"));
 
         $views = [
-            ["comment/question/view-all", ["questions" => $question->getQuestions()], "main"]
+            ["comment/question/view-all", ["questions" => $question->getQuestions(),
+             "headerTitle" => "Senaste frågor"], "main"]
         ];
 
         $this->di->get("pageRenderComment")->renderPage([
@@ -99,7 +100,7 @@ class QuestionController extends AdminController
         $views = [
             ["comment/question/view/view-question", ["question" => $question], "question"],
             ["comment/question/view/view-answers",
-            ["answers" => $question->answers, "questionId" => $question->question->questionId], "question"],
+            ["answers" => $question->answers, "questionId" => $question->question->questionId], "answer"],
             ["comment/question/view/post-answer", ["form" => $form->getHTML()], "form"],
             ["comment/question/view/wrappedField", ["question" => $question], "main"]
             ];
@@ -129,7 +130,8 @@ class QuestionController extends AdminController
         });
 
         $views = [
-            ["comment/question/view-all", ["questions" => $filteredQuestions], "main"]
+            ["comment/question/view-all", ["questions" => $filteredQuestions,
+             "headerTitle" => "Frågor med taggen $tag"], "main"]
         ];
 
         $this->di->get("pageRenderComment")->renderPage([
@@ -152,15 +154,9 @@ class QuestionController extends AdminController
 
         $views = [
             ["comment/question/create-question", ["form" => $form->getHTML()], "main"],
-            ["comment/question/view-all", ["questions" => $question->getQuestions()], "main"]
+            ["comment/question/view-all", ["questions" => $question->getQuestions(),
+             "headerTitle" => "Senaste frågor"], "main"]
         ];
-
-        // If not logged in, render other views
-        if (!$this->di->get("session")->has("user")) {
-            $views = [
-                ["comment/loginComment", [], "main"]
-            ];
-        }
 
         $this->di->get("pageRenderComment")->renderPage([
             "views" => $views,

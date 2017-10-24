@@ -129,6 +129,7 @@ class CreateQuestionForm extends FormModel
         $post->questionId = $question->id;
         $post->text       = $text;
         $post->type       = "question";
+        $post->accepted   = "no";
         $post->save();
 
 
