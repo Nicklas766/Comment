@@ -101,14 +101,14 @@ SELECT * FROM `coffee_posts` WHERE id = 2;
 -- ----------------------------------------------------------------------
 
 INSERT INTO `coffee_users` (`name`, `email`, `pass`, `authority`, `question`) VALUES
-    ("anders", "litemerafrukt@gmail.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("aurora", "nhdandersson@gmail.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("marcus", "marcusgu@hotmail.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("peder", "peder.tornberg@gmail.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("magnus", "magnusandersson076@gmail.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("mos", "mos@dbwebb.se", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("nicklas", "nicklas766@live.se", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
-    ("user", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "user", "lasagne"),
+    ("anders", "litemerafrukt@gmail.com", "$2y$10$ZnLcSoDWObj8LNwC4wXk4Ou.4vfgbitGTwqEK0p35vltXhbQmYm0W", "user", "lasagne"),
+    ("aurora", "nhdandersson@gmail.com", "$2y$10$ZnLcSoDWObj8LNwC4wXk4Ou.4vfgbitGTwqEK0p35vltXhbQmYm0W", "user", "lasagne"),
+    ("marcus", "marcusgu@hotmail.com", "$2y$10$ZnLcSoDWObj8LNwC4wXk4Ou.4vfgbitGTwqEK0p35vltXhbQmYm0W", "user", "lasagne"),
+    ("peder", "peder.tornberg@gmail.com", "$2y$10$ZnLcSoDWObj8LNwC4wXk4Ou.4vfgbitGTwqEK0p35vltXhbQmYm0W", "user", "lasagne"),
+    ("magnus", "magnusandersson076@gmail.com", "$2y$10$ZnLcSoDWObj8LNwC4wXk4Ou.4vfgbitGTwqEK0p35vltXhbQmYm0W", "user", "lasagne"),
+    ("mos", "mos@dbwebb.se", "$2y$10$ZnLcSoDWObj8LNwC4wXk4Ou.4vfgbitGTwqEK0p35vltXhbQmYm0W", "user", "lasagne"),
+    ("nicklas", "nicklas766@live.se", "$2y$10$ZnLcSoDWObj8LNwC4wXk4Ou.4vfgbitGTwqEK0p35vltXhbQmYm0W", "user", "lasagne"),
+    ("user", "admin@admin.com", "$2y$10$ZnLcSoDWObj8LNwC4wXk4Ou.4vfgbitGTwqEK0p35vltXhbQmYm0W", "user", "lasagne"),
 	("admin", "admin@admin.com", "$2y$10$Oo8aC.3U9NlfrSBO3W5bG.jByboAvCRA/UuTwAx9uJOb5BlOVh0xC", "admin", "lasagne");
 
     -- mos@dbwebb.se

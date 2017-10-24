@@ -63,6 +63,7 @@ class ProfileController extends LoginController
      */
     public function getPostEditUser()
     {
+        $this->checkIsLogin();
         $name = $this->di->get('session')->get("user");
         $user = $this->getUserDetails($name);
 
